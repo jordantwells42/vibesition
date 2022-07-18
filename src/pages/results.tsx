@@ -43,7 +43,7 @@ export default function Results () {
             data.t = 1.2
             setEndSong(data)
         })
-    fetch('/api/audio-features?ids=' + startId + ',' + endId)
+    fetch('/api/audio-features?startId=' + startId + '&endId=' + endId)
       .then(res => res.json())
       .then(data => {
         if (!data[0]) {

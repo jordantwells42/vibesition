@@ -7,10 +7,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({req});
   const {query} = req;
   
-  if (query.ids && token){
-    const {ids} = query;
+  if (query.startId && query.endId && token){
+    const {startId, endId} = query;
     const accessToken = token.accessToken as string;
-    const response = await getAudioFeatures(accessToken, ids.split(",") as string[]);
+    const response = await getAudioFeatures(accessToken, [startId as string, endId  as string]);
     const {audio_features} = await response.json();
 
     return res.status(200).json(audio_features);
