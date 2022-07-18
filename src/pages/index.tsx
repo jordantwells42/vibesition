@@ -5,49 +5,48 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import SpotifySearch from '../components/spotifysearch'
 
+
 const Home: NextPage = () => {
   const { data: session } = useSession()
   const [startSong, setStartSong] = useState({ id: '', name: '', img: '' })
   const [endSong, setEndSong] = useState({ id: '', name: '', img: '' })
-  const [openTab, setOpenTab] = useState<number>(0)
+  const [openTab, setOpenTab] = useState<number>(-1)
 
   if (session) {
     return (
-      <div className='min-h-screen w-screen flex flex-col items-center justify-start pt-10 bg-slate-900 text-white overflow-y-hidden'>
-        Signed in as {JSON.stringify(session?.user?.email)}
-        <button onClick={() => signOut()}>Sign out</button>
-        <div className='w-5/6 h-full lg:w-3/4 flex flex-col items-center justify-center'>
+      <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-10 bg-slate-900 text-white'>
+        <div className="absolute top-5 right-5 border-2 bg-slate-400 flex flex-col p-2 rounded-2xl">
+        Hey, {session?.user?.name}
+        <button className="hover:text-blue-200" onClick={() => signOut()}>Sign out</button>
+        </div>
+        <div className='pt-20 w-5/6 h-full lg:w-3/4 flex flex-col items-center justify-center'>
           <div className='flex-row flex w-full items-center justify-center font-semibold'>
             <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-start
+              className={`w-1/3 h-20 flex flex-row items-center justify-center p-2
             ${openTab == 0 ? 'bg-slate-700' : 'bg-blue-500'} `}
               onClick={() => setOpenTab(0)}
             >
-              {startSong.img ? (
+              {startSong.img && (
                 <img
-                  className='h-3/4 aspect-square mx-10 rounded'
+                  className='h-3/4 aspect-square mx-5 rounded hidden md:block'
                   alt={startSong.name}
                   src={startSong.img}
                 />
-              ) : (
-                <div className='w-10 h-10 mx-10 bg-slate-600'></div>
               )}
               Select Starting Song
             </button>
             <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-start
+              className={`w-1/3 h-20 flex flex-row items-center justify-center p-2
             ${openTab == 1 ? 'bg-slate-700' : 'bg-blue-500'} `}
               onClick={() => setOpenTab(1)}
             >
-              {endSong.img ? (
-                <img className='h-3/4 aspect-square mx-10 rounded' alt={endSong.name} src={endSong.img} />
-              ) : (
-                <div className='w-10 h-10 mx-10 bg-slate-600'></div>
+              {endSong.img && (
+                <img className='h-3/4 aspect-square mx-5 rounded hidden md:block' alt={endSong.name} src={endSong.img} />
               )}
               Select Ending Song
             </button>
             <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-center
+              className={`w-1/3 h-20 flex flex-row items-center justify-center  p-2 
             ${openTab == 2 ? 'bg-slate-700' : 'bg-blue-500'} `}
               onClick={() => setOpenTab(2)}
             >
@@ -55,12 +54,12 @@ const Home: NextPage = () => {
             </button>
           </div>
           <SpotifySearch
-            display={openTab == 0 ? 'block' : 'none'}
+            display={openTab == 0}
             setSong={setStartSong}
             title={'First Song'}
           />
           <SpotifySearch
-            display={openTab == 1 ? 'block' : 'none'}
+            display={openTab == 1}
             setSong={setEndSong}
             title={'Second Song'}
           />
