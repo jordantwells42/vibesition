@@ -1,5 +1,4 @@
-import { getUsersPlaylists, getSearch } from '../../libs/spotify';
-import {getSession} from 'next-auth/react';
+import { getSearch } from '../../libs/spotify';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
 

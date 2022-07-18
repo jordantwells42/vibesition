@@ -31,7 +31,6 @@ export default function SpotifySearch ({
         .then(data => setSearchResults(data))
     }
   }, [searchQuery])
-  console.log(searchResults && searchResults.length)
   return (
     <motion.div
       animate={{

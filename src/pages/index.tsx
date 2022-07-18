@@ -12,6 +12,12 @@ const Home: NextPage = () => {
   const [endSong, setEndSong] = useState({ id: '', name: '', img: '' })
   const [openTab, setOpenTab] = useState<number>(-1)
 
+  useEffect(() => {
+    fetch('/api/audio-features?startId=' + startSong.id + "&endId=" + endSong.id)
+      .then(res => res.json())
+      .then(data => console.log(data))
+  }, [startSong, endSong])
+
   if (session) {
     return (
       <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-10 bg-slate-900 text-white'>

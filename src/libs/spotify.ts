@@ -4,6 +4,7 @@ const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 const PLAYLISTS_ENDPOINT = 'https://api.spotify.com/v1/me/playlists'
 const SEARCH_ENDPOINT = 'https://api.spotify.com/v1/search'
+const AF_ENDPOINT = 'https://api.spotify.com/v1/audio-features'
 
 const getAccessToken = async (refresh_token: string) => {
   const response = await fetch(TOKEN_ENDPOINT, {
@@ -43,3 +44,16 @@ export const getSearch = async (refresh_token: string, query: string) => {
     },
   })
 }
+
+export const getAudioFeatures = async (refresh_token: string, ids: string[]) => {
+    const { access_token } = await getAccessToken(refresh_token)
+    const querystring = new URLSearchParams({
+      ids: ids.join(","),
+    
+    }).toString()
+    return fetch(AF_ENDPOINT + "?" + querystring, {
+      headers: {
+        Authorization: `Bearer ${access_token}`
+      },
+    })
+  }
