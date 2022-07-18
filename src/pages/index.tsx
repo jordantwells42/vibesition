@@ -83,7 +83,8 @@ const Home: NextPage = () => {
               }}
             >
               <button
-                className={`w-1/3 h-20 flex flex-row items-center justify-center bg-green-600 rounded-tr-xl p-2 md:text-xl`}
+                style={{backgroundColor: (startSong.id && endSong.id) ? '#1ed760' : tinycolor('#1ed760').desaturate(40).toHexString()}}
+                className={`w-1/3 h-20 flex flex-row items-center justify-center rounded-tr-xl p-2 md:text-xl`}
                 onClick={() => setOpenTab(2)}
               >
                 <a>
@@ -115,13 +116,12 @@ const Home: NextPage = () => {
     )
   }
   return (
-    <div className='bg-slate-800 text-white flex flex-col items-center justify-center text-4xl w-full h-screen'>
-      Not signed in <br />
+    <div className='bg-slate-700 text-white flex flex-col items-center justify-center text-4xl w-full h-screen'>
+      <p className='w-5/6 text-center'>Sign in with Spotify to use <i>Gradiance</i> </p>
       <button
-        className='bg-green-900 p-4 w-3/4 md:w-1/3 h-24 flex flex-row items-center justify-center border-white rounded-2xl m-10'
+        className='bg-green-700 p-4 w-3/4 md:w-1/3 h-24 flex flex-row items-center justify-center border-white rounded-2xl m-10'
         onClick={() => signIn('spotify')}
       >
-        <div className='w-1/2 hidden md:block'>Sign in with</div>{' '}
         <img className='h-full' src='/spotify_logo.png'></img>
       </button>
     </div>
