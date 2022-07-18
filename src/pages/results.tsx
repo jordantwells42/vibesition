@@ -72,6 +72,7 @@ export default function Results () {
           console.log(interpolation)
           interpolation.startId = startId
           interpolation.endId = endId
+          interpolation.t = (i + 1)/numSongs
           fetch(
             '/api/recommend-from-interpolation?interpolation=' +
               JSON.stringify(interpolation)
@@ -82,7 +83,15 @@ export default function Results () {
               if (!data) {
                 return null
               }
-              setInterpolatedSongs((p: any) => [...p, data])
+              setInterpolatedSongs((p: any) => [...p, data].sort((a, b) => {
+                if (a.t < b.t){
+                  return -1
+                } else if (b.t < a.t){
+                  return 1
+                } else {
+                  return 0
+                }
+              }))
             })
         }
       })
