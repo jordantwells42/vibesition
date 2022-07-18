@@ -6,6 +6,19 @@ import { useEffect, useState } from 'react'
 import SpotifySearch from '../components/spotifysearch'
 import Link from 'next/link'
 
+
+/*
+
+[] - Get audio features of interpolated songs
+[] - Ensure that the interpolated songs are unique 
+[] - Style results page
+[] - Allow export to Spotify playlists
+[] - Allow sharing of url to share gradient
+[] - General UI things
+
+*/
+
+
 const Home: NextPage = () => {
   const { data: session } = useSession()
   const [startSong, setStartSong] = useState({ id: '', name: '', img: '' })
