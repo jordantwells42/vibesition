@@ -12,13 +12,7 @@ const Home: NextPage = () => {
   const [endSong, setEndSong] = useState({ id: '', name: '', img: '' })
   const [openTab, setOpenTab] = useState<number>(-1)
 
-  useEffect(() => {
-    fetch(
-      '/api/audio-features?startId=' + startSong.id + '&endId=' + endSong.id
-    )
-      .then(res => res.json())
-      .then(data => console.log(data))
-  }, [startSong, endSong])
+
 
   if (session) {
     return (
