@@ -8,7 +8,7 @@ import featuresToColors from '../libs/featuresToColor'
 
 function interpolate (features1: any, features2: any, t: number) {
   const features: any = {}
-  const s = 1 / (1 + Math.exp(-(8 * (t - 0.5))))
+  const s = 1 / (1 + Math.exp(-(5 * (t - 0.5))))
   for (const key in features1) {
     if (features1.hasOwnProperty(key) && typeof features1[key] === 'number') {
       features[key] =
@@ -114,7 +114,7 @@ export default function Results () {
   }, [interpolatedSongs, startId, endId])
 
   return (
-    <div className='w-full min-h-screen bg-slate-900  flex flex-col items-center justify-center py-5'>
+    <div className='w-full min-h-screen bg-slate-700  flex flex-col items-center justify-center py-5'>
       <h1 className="text-white text-4xl font-semibold m-5">Your <i>Gradiance</i></h1>
       <div className='flex w-full flex-row items-center justify-center'>
         <div className='w-5/6 flex flex-col justify-center items-center'>
@@ -126,7 +126,7 @@ export default function Results () {
                 result.album && (
                   <motion.div
                     style={ {
-                      backgroundColor: colors[idx] ?  (colors[idx] as tinycolor.Instance).toHexString() : 'lightgreen',
+                      backgroundColor: colors[idx] ?  (colors[idx] as tinycolor.Instance).toHexString() : '#222',
                       color: colors[idx] ? textColor(colors[idx] as tinycolor.Instance, [tinycolor("white")]) : 'white',
                     }}
                     initial={{ x: -20, height: '0%' }}

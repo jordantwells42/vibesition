@@ -27,8 +27,8 @@ const Home: NextPage = () => {
   const [startSong, setStartSong] = useState({ id: '', name: '', img: '' })
   const [endSong, setEndSong] = useState({ id: '', name: '', img: '' })
   const [openTab, setOpenTab] = useState<number>(0)
-  const [startColor, setStartColor] = useState(tinycolor("gray"))
-  const [endColor, setEndColor] = useState(tinycolor("gray"))
+  const [startColor, setStartColor] = useState(tinycolor("#333333"))
+  const [endColor, setEndColor] = useState(tinycolor("#222222"))
 
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
 
   if (session) {
     return (
-      <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-5 bg-slate-900 text-white'>
+      <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-5 bg-slate-700 text-white'>
         <div className='pt-20 w-5/6 h-full lg:w-3/4 flex flex-col items-center justify-center'>
           <div className='flex-row flex w-full items-center justify-center font-semibold'>
             <TabButton
@@ -76,7 +76,7 @@ const Home: NextPage = () => {
               }}
             >
               <button
-                className={`w-1/3 h-20 flex flex-row items-center justify-center bg-green-500 rounded-tr-xl p-2 md:text-xl`}
+                className={`w-1/3 h-20 flex flex-row items-center justify-center bg-green-600 rounded-tr-xl p-2 md:text-xl`}
                 onClick={() => setOpenTab(2)}
               >
                 <a>
