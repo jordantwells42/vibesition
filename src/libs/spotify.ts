@@ -75,14 +75,14 @@ export const getAudioFeatures = async (refresh_token: string, ids: string[]) => 
     const querystring = new URLSearchParams({
         seed_artists: '',
         seed_genres: '',
-        seed_tracks: [interpolation.startId, interpolation.endId].join(","),
-        limit: '5',
+        seed_tracks: '',//[interpolation.startId, interpolation.endId].join(","),
+        limit: '1',
         target_energy: interpolation.energy,
         target_danceability: interpolation.danceability,
         target_loudness: interpolation.loudness,
         target_valence: interpolation.valence,
         target_tempo: interpolation.tempo,
-        target_popularity: '100',
+        //target_popularity: '100',
         
         target_acousticness: interpolation.acousticness,
         target_instrumentalness: interpolation.instrumentalness,
