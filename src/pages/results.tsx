@@ -102,6 +102,7 @@ export default function Results () {
   console.log("SOKJSD", [startSong,...interpolatedSongs,endSong])
   return (
     <div className="w-full min-h-screen bg-slate-900 text-white">
+      <input value={numSongs} onChange={(evt) => setNumSongs(Number(evt.target.value))}></input>
       <h1>Results</h1>
       <p>Start: {startId}</p>
       <p>End: {endId}</p>
