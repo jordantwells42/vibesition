@@ -18,6 +18,8 @@ export default function Results () {
   const router = useRouter()
   const { startId, endId } = router.query
   const [startFeatures, setStartFeatures] = useState(null)
+  const [startSong, setStartSong] = useState(null)
+  const [endSong, setEndSong] = useState(null)
   const [endFeatures, setEndFeatures] = useState(null)
   const [startColor, setStartColor] = useState<tinycolor.Instance>(
     tinycolor('green')
@@ -29,6 +31,16 @@ export default function Results () {
   const [interpolatedSongs, setInterpolatedSongs] = useState<any>([])
 
   useEffect(() => {
+    fetch(`/api/search-by-id?id=${startId}`)
+        .then(res => res.json())
+        .then(data => {
+            setStartSong(data)
+        })
+    fetch(`/api/search-by-id?id=${endId}`)
+        .then(res => res.json())
+        .then(data => {
+            setEndSong(data)
+        })
     fetch('/api/audio-features?startId=' + startId + '&endId=' + endId)
       .then(res => res.json())
       .then(data => {
@@ -75,7 +87,7 @@ export default function Results () {
         }
       })
   }, [endId, startId, numSongs])
-
+  console.log("SOKJSD", [startSong,...interpolatedSongs,endSong])
   return (
     <div className="w-full min-h-screen bg-slate-900 text-white">
       <h1>Results</h1>
@@ -83,8 +95,8 @@ export default function Results () {
       <p>End: {endId}</p>
       <div className='flex flex-row items-center justify-center'>
         <div className="w-full flex flex-col justify-center items-center">
-        {interpolatedSongs &&
-          interpolatedSongs.map((result: any, idx: number) => (
+        {interpolatedSongs && startSong && endSong &&
+          [startSong,...interpolatedSongs,endSong].map((result: any, idx: number) => (result.album && 
             <motion.div
               initial={{ x: -20, height: '0%' }}
               animate={{ x: 0, height: '100%' }}
