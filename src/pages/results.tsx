@@ -85,7 +85,7 @@ export default function Results () {
               if (!data) {
                 return null
               }
-              data.t = (i + 1)/numSongss
+              data.t = (i + 1)/numSongs
               setInterpolatedSongs((p: any) => [...p, data].sort((a, b) => {
                 if (a.t < b.t){
                   return -1
