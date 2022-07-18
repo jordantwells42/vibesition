@@ -36,8 +36,7 @@ export default function SpotifySearch ({
       animate={{
         display: display ? 'block' : 'none',
         x: display ? 0 : -10
-      }
-      }
+      }}
       className='bg-slate-700 w-full h-full p-5 rounded-b-2xl flex flex-col flex-wrap items-center justify-center overflow-x-hidden'
     >
       <h1 className='m-2 font-semibold'>{title}</h1>
@@ -51,8 +50,8 @@ export default function SpotifySearch ({
         {searchResults &&
           searchResults.map((result: any, idx: number) => (
             <motion.div
-            initial={{ x: -20 }}
-            animate={{ x: 0 }}
+              initial={{ x: -20, height: '0%' }}
+              animate={{ x: 0, height: '100%' }}
               onClick={() =>
                 setSong({
                   id: result.id,
@@ -74,6 +73,9 @@ export default function SpotifySearch ({
                   {result.artists[0].name}
                 </p>
               </div>
+              <audio className="w-1/2 hidden md:block mx-4" controls >
+                <source className="bg-slate-900" src={result.preview_url} type='audio/mp3' />
+              </audio>
               <PlusIcon
                 className='h-6 w-6 cursor-pointer'
                 onClick={() =>

@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 
 /*
+TODO: 
 
 [] - Get audio features of interpolated songs
 [] - Ensure that the interpolated songs are unique 
@@ -66,20 +67,22 @@ const Home: NextPage = () => {
               )}
               Select Ending Song
             </button>
-            <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-center  p-2 
-            ${openTab == 2 ? 'bg-slate-700' : 'bg-blue-500'} `}
-              onClick={() => setOpenTab(2)}
-            >
-              <Link
+            <Link
                 href={{
                   pathname: '/results',
                   query: { startId: startSong.id, endId: endSong.id }
                 }}
               >
-                <a>path</a>
-              </Link>
+            <button
+              className={`w-1/3 h-20 flex flex-row items-center justify-center  p-2 
+            ${openTab == 2 ? 'bg-slate-700' : 'bg-blue-500'} `}
+              onClick={() => setOpenTab(2)}
+            >
+              
+                <a>Generate your <i>Gradiance</i></a>
+              
             </button>
+            </Link>
           </div>
           <SpotifySearch
             display={openTab == 0}

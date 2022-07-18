@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import tinycolor from 'tinycolor2'
+import { motion } from 'framer-motion';
 
 function interpolate (features1: any, features2: any, t: number) {
   const features: any = {}
@@ -31,7 +32,7 @@ export default function Results () {
     fetch('/api/audio-features?startId=' + startId + '&endId=' + endId)
       .then(res => res.json())
       .then(data => {
-        if (!data) {
+        if (!data[0]) {
           return null
         }
         setStartFeatures(data[0])
@@ -73,32 +74,41 @@ export default function Results () {
             })
         }
       })
-  }, [])
+  }, [endId, startId, numSongs])
 
   return (
     <div>
       <h1>Results</h1>
       <p>Start: {startId}</p>
       <p>End: {endId}</p>
-      <div className='flex flex-col items-center justify-center'>
-        <p
-          style={{ backgroundColor: startColor.toHexString() }}
-          className='w-40 h-40 rounded-2xl'
-        >
-          Start Features: {JSON.stringify(startFeatures)}
-        </p>
-        <p
-          style={{ backgroundColor: endColor.toHexString() }}
-          className='w-40 h-40 rounded-2xl'
-        >
-          End Features: {JSON.stringify(endFeatures)}
-        </p>
-        {interpolatedSongs.map((song: any, i: number) => (
-          <div className='border-black border-2 p-2 rounded-2xl m-20' key={song.id}>
-            <h1>{song.name}</h1>
-            <h2>{song.artists[0].name}</h2>
-          </div>
-        ))}
+      <div className='flex flex-row items-center justify-center'>
+        <div className="w-full flex flex-col justify-center items-center">
+        {interpolatedSongs &&
+          interpolatedSongs.map((result: any, idx: number) => (
+            <motion.div
+              initial={{ x: -20, height: '0%' }}
+              animate={{ x: 0, height: '100%' }}
+              className='px-4 hover:bg-green-700 hover:cursor-pointer rounded-2xl md:p-2 flex flex-row w-full justify-start items-center'
+              key={result.id}
+            >
+              <img
+                className='object-contain w-10 h-10 md:w-20 md:h-20 aspect-square'
+                src={result.album.images[1].url}
+                alt='tites'
+              />
+              <div className='overflow-x-hidden flex flex-col m-2 w-full justify-center items-start'>
+                <h1 className='whitespace-nowrap truncate'>{result.name}</h1>
+                <p className='whitespace-nowrap truncate'>
+                  {result.artists[0].name}
+                </p>
+              </div>
+              <audio className="w-1/2 hidden md:block mx-4" controls >
+                <source className="bg-slate-900" src={result.preview_url} type='audio/mp3' />
+              </audio>
+              
+            </motion.div>
+            ))}
+        </div>
       </div>
     </div>
   )
