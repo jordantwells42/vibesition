@@ -1,128 +1,128 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
-import tinycolor from 'tinycolor2'
-import { motion } from 'framer-motion'
-import textColor from '../libs/textColor'
-import featuresToColors from '../libs/featuresToColor'
-import Login from '../components/login'
-import { useSession } from 'next-auth/react';
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import tinycolor from "tinycolor2";
+import { motion } from "framer-motion";
+import textColor from "../libs/textColor";
+import featuresToColors from "../libs/featuresToColor";
+import Login from "../components/login";
+import { useSession } from "next-auth/react";
 
-function interpolate (features1: any, features2: any, t: number) {
-  const features: any = {}
-  const s = 1 / (1 + Math.exp(-(5 * (t - 0.5))))
+function interpolate(features1: any, features2: any, t: number) {
+  const features: any = {};
+  const s = 1 / (1 + Math.exp(-(5 * (t - 0.5))));
   for (const key in features1) {
-    if (features1.hasOwnProperty(key) && typeof features1[key] === 'number') {
+    if (features1.hasOwnProperty(key) && typeof features1[key] === "number") {
       features[key] =
-        Math.round((features1[key] * (1 - s) + features2[key] * s) * 100) / 100
+        Math.round((features1[key] * (1 - s) + features2[key] * s) * 100) / 100;
     }
   }
-  return features
+  return features;
 }
 
-export default function Results () {
-  const router = useRouter()
-  const { startId, endId } = router.query
-  const { data: session } = useSession()
-  const [startSong, setStartSong] = useState(null)
-  const [endSong, setEndSong] = useState(null)
-  const numSongs = 10
+export default function Results() {
+  const router = useRouter();
+  const { startId, endId } = router.query;
+  const { data: session } = useSession();
+  const [startSong, setStartSong] = useState(null);
+  const [endSong, setEndSong] = useState(null);
+  const numSongs = 10;
   const [colors, setColors] = useState<tinycolor.Instance[]>(
-    new Array(numSongs + 2).fill(tinycolor('gray'))
-  )
-  const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([])
-  const ids = useRef(new Set([startId, endId]))
+    new Array(numSongs + 2).fill(tinycolor("gray"))
+  );
+  const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([]);
+  const ids = useRef(new Set([startId, endId]));
 
   useEffect(() => {
-    async function fetchSongs () {
-      setInterpolatedSongs([])
+    async function fetchSongs() {
+      setInterpolatedSongs([]);
       fetch(`/api/search-by-id?id=${startId}`)
-        .then(res => res.json())
-        .then(data => {
-          data.t = 0
-          setStartSong(data)
-        })
+        .then((res) => res.json())
+        .then((data) => {
+          data.t = 0;
+          setStartSong(data);
+        });
       fetch(`/api/search-by-id?id=${endId}`)
-        .then(res => res.json())
-        .then(data => {
-          data.t = 1.2
-          setEndSong(data)
-        })
-      fetch('/api/audio-features?ids=' + startId + ',' + endId)
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
+          data.t = 1.2;
+          setEndSong(data);
+        });
+      fetch("/api/audio-features?ids=" + startId + "," + endId)
+        .then((res) => res.json())
+        .then((data) => {
           if (!data[0]) {
-            return null
+            return null;
           }
           for (let i = 0; i < numSongs; i++) {
             const interpolation = interpolate(
               data[0],
               data[1],
               (i + 1) / numSongs
-            )
-            interpolation.startId = startId
-            interpolation.endId = endId
+            );
+            interpolation.startId = startId;
+            interpolation.endId = endId;
 
             fetch(
-              '/api/recommend-from-interpolation?interpolation=' +
+              "/api/recommend-from-interpolation?interpolation=" +
                 JSON.stringify(interpolation) +
-                '&limit=' +
+                "&limit=" +
                 String(numSongs + 2)
             )
-              .then(res => res.json())
-              .then(data => {
+              .then((res) => res.json())
+              .then((data) => {
                 if (!data) {
-                  return null
+                  return null;
                 }
                 const filteredData = data.filter((song: any) => {
-                  return !ids.current.has(song.id)
-                })
+                  return !ids.current.has(song.id);
+                });
 
                 if (filteredData.length === 0) {
-                  return
+                  return;
                 }
-                ids.current.add(filteredData[0].id)
-                const song = filteredData[0]
-                song.t = (i + 1) / numSongs
+                ids.current.add(filteredData[0].id);
+                const song = filteredData[0];
+                song.t = (i + 1) / numSongs;
                 setInterpolatedSongs((p: any) =>
                   [...p, song].sort((a, b) => {
                     if (a.t < b.t) {
-                      return -1
+                      return -1;
                     } else if (b.t < a.t) {
-                      return 1
+                      return 1;
                     } else {
-                      return 0
+                      return 0;
                     }
                   })
-                )
-              })
+                );
+              });
           }
-        })
+        });
     }
-    fetchSongs()
-  }, [endId, startId, numSongs])
+    fetchSongs();
+  }, [endId, startId, numSongs]);
 
   useEffect(() => {
     fetch(
-      '/api/audio-features?ids=' +
-        [startId, ...interpolatedSongs.map(s => s.id), endId].join(',')
+      "/api/audio-features?ids=" +
+        [startId, ...interpolatedSongs.map((s) => s.id), endId].join(",")
     )
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (!data[0]) {
-          return null
+          return null;
         }
-        setColors(data.map((features: any) => featuresToColors(features)))
-      })
-  }, [interpolatedSongs, startId, endId])
+        setColors(data.map((features: any) => featuresToColors(features)));
+      });
+  }, [interpolatedSongs, startId, endId]);
   if (session) {
     return (
-      <div className='w-full min-h-screen bg-slate-700  flex flex-col items-center justify-center py-5'>
-        <h1 className='text-white text-4xl font-semibold m-5'>
+      <div className="flex min-h-screen w-full  flex-col items-center justify-center bg-slate-700 py-5">
+        <h1 className="m-5 text-4xl font-semibold text-white">
           Your <i>Gradiance</i>
         </h1>
-        <div className='flex w-full flex-row items-center justify-center'>
-          <div className='w-5/6 flex flex-col justify-center items-center'>
+        <div className="flex w-full flex-row items-center justify-center">
+          <div className="flex w-5/6 flex-col items-center justify-center">
             {interpolatedSongs &&
               startSong &&
               endSong &&
@@ -133,36 +133,36 @@ export default function Results () {
                       style={{
                         backgroundColor: colors[idx]
                           ? (colors[idx] as tinycolor.Instance).toHexString()
-                          : '#222',
+                          : "#222",
                         color: colors[idx]
                           ? textColor(colors[idx] as tinycolor.Instance, [
-                              tinycolor('white')
+                              tinycolor("white"),
                             ])
-                          : 'white'
+                          : "white",
                       }}
-                      initial={{ x: -20, height: '0%' }}
-                      animate={{ x: 0, height: '100%' }}
-                      className='px-4 hover:bg-green-700 hover:cursor-pointer rounded-2xl md:p-2 flex flex-row w-full justify-start items-center'
+                      initial={{ x: -20, height: "0%" }}
+                      animate={{ x: 0, height: "100%" }}
+                      className="flex w-full flex-row items-center justify-start rounded-2xl px-4 hover:cursor-pointer hover:bg-green-700 md:p-2"
                       key={result.id}
                     >
                       <img
-                        className='object-contain w-10 h-10 md:w-20 md:h-20 aspect-square'
+                        className="aspect-square h-10 w-10 object-contain md:h-20 md:w-20"
                         src={result.album.images[1].url}
-                        alt='tites'
+                        alt="tites"
                       />
-                      <div className='overflow-x-hidden flex flex-col m-2 w-full justify-center items-start'>
-                        <h1 className='whitespace-nowrap truncate'>
+                      <div className="m-2 flex w-full flex-col items-start justify-center overflow-x-hidden">
+                        <h1 className="truncate whitespace-nowrap">
                           {result.name}
                         </h1>
-                        <p className='whitespace-nowrap truncate'>
+                        <p className="truncate whitespace-nowrap">
                           {result.artists[0].name}
                         </p>
                       </div>
-                      <audio className='w-1/2 hidden md:block mx-4' controls>
+                      <audio className="mx-4 hidden w-1/2 md:block" controls>
                         <source
-                          className='bg-slate-900'
+                          className="bg-slate-900"
                           src={result.preview_url}
-                          type='audio/mp3'
+                          type="audio/mp3"
                         />
                       </audio>
                     </motion.div>
@@ -171,8 +171,8 @@ export default function Results () {
           </div>
         </div>
       </div>
-    )
+    );
   } else {
-    return <Login />
+    return <Login />;
   }
 }
