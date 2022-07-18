@@ -57,11 +57,10 @@ export const getSearchById = async (refresh_token: string, id: string) => {
     })
   }
 
-export const getAudioFeatures = async (refresh_token: string, ids: string[]) => {
+export const getAudioFeatures = async (refresh_token: string, ids: string) => {
     const { access_token } = await getAccessToken(refresh_token)
     const querystring = new URLSearchParams({
-      ids: ids.join(","),
-    
+      ids: ids    
     }).toString()
     return fetch(AF_ENDPOINT + "?" + querystring, {
       headers: {
@@ -70,22 +69,22 @@ export const getAudioFeatures = async (refresh_token: string, ids: string[]) => 
     })
   }
 
-  export const getRecommendation = async (refresh_token: string, interpolation: any) => {
+  export const getRecommendation = async (refresh_token: string, interpolation: any, limit:number) => {
     const { access_token } = await getAccessToken(refresh_token)
     const querystring = new URLSearchParams({
         seed_artists: '',
         seed_genres: '',
         seed_tracks: [interpolation.startId, interpolation.endId].join(","),
-        limit: '5',
+        limit: String(limit),
         target_energy: interpolation.energy,
         target_danceability: interpolation.danceability,
-        target_loudness: interpolation.loudness,
+        //target_loudness: interpolation.loudness,
         target_valence: interpolation.valence,
-        target_tempo: interpolation.tempo,
-        target_popularity: '100',
+        //target_tempo: interpolation.tempo,
+        //target_popularity: '100',
         
-        target_acousticness: interpolation.acousticness,
-        target_instrumentalness: interpolation.instrumentalness,
+        //target_acousticness: interpolation.acousticness,
+        //target_instrumentalness: interpolation.instrumentalness,
         //target_liveness: interpolation.liveness,
         //target_speechiness: interpolation.speechiness,
         //target_duration_ms: String(Math.floor(interpolation.duration_ms)),
