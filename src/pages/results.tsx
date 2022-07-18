@@ -77,7 +77,7 @@ export default function Results () {
   }, [endId, startId, numSongs])
 
   return (
-    <div>
+    <div className="w-full min-h-screen bg-slate-900 text-white">
       <h1>Results</h1>
       <p>Start: {startId}</p>
       <p>End: {endId}</p>
