@@ -5,6 +5,8 @@ import tinycolor from 'tinycolor2'
 import { motion } from 'framer-motion'
 import textColor from '../libs/textColor'
 import featuresToColors from '../libs/featuresToColor'
+import Login from '../components/login'
+import { useSession } from 'next-auth/react';
 
 function interpolate (features1: any, features2: any, t: number) {
   const features: any = {}
@@ -21,10 +23,13 @@ function interpolate (features1: any, features2: any, t: number) {
 export default function Results () {
   const router = useRouter()
   const { startId, endId } = router.query
+  const { data: session } = useSession()
   const [startSong, setStartSong] = useState(null)
   const [endSong, setEndSong] = useState(null)
   const numSongs = 10
-  const [colors, setColors] = useState<tinycolor.Instance[]>(new Array(numSongs+2).fill(tinycolor("gray")))
+  const [colors, setColors] = useState<tinycolor.Instance[]>(
+    new Array(numSongs + 2).fill(tinycolor('gray'))
+  )
   const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([])
   const ids = useRef(new Set([startId, endId]))
 
@@ -107,58 +112,67 @@ export default function Results () {
         if (!data[0]) {
           return null
         }
-        setColors(
-          data.map((features: any) => featuresToColors(features))
-        )
+        setColors(data.map((features: any) => featuresToColors(features)))
       })
   }, [interpolatedSongs, startId, endId])
-
-  return (
-    <div className='w-full min-h-screen bg-slate-700  flex flex-col items-center justify-center py-5'>
-      <h1 className="text-white text-4xl font-semibold m-5">Your <i>Gradiance</i></h1>
-      <div className='flex w-full flex-row items-center justify-center'>
-        <div className='w-5/6 flex flex-col justify-center items-center'>
-          {interpolatedSongs &&
-            startSong &&
-            endSong &&
-            [startSong, ...interpolatedSongs, endSong].map(
-              (result: any, idx: number) =>
-                result.album && (
-                  <motion.div
-                    style={ {
-                      backgroundColor: colors[idx] ?  (colors[idx] as tinycolor.Instance).toHexString() : '#222',
-                      color: colors[idx] ? textColor(colors[idx] as tinycolor.Instance, [tinycolor("white")]) : 'white',
-                    }}
-                    initial={{ x: -20, height: '0%' }}
-                    animate={{ x: 0, height: '100%' }}
-                    className='px-4 hover:bg-green-700 hover:cursor-pointer rounded-2xl md:p-2 flex flex-row w-full justify-start items-center'
-                    key={result.id}
-                  >
-                    <img
-                      className='object-contain w-10 h-10 md:w-20 md:h-20 aspect-square'
-                      src={result.album.images[1].url}
-                      alt='tites'
-                    />
-                    <div className='overflow-x-hidden flex flex-col m-2 w-full justify-center items-start'>
-                      <h1 className='whitespace-nowrap truncate'>
-                        {result.name}
-                      </h1>
-                      <p className='whitespace-nowrap truncate'>
-                        {result.artists[0].name}
-                      </p>
-                    </div>
-                    <audio className='w-1/2 hidden md:block mx-4' controls>
-                      <source
-                        className='bg-slate-900'
-                        src={result.preview_url}
-                        type='audio/mp3'
+  if (session) {
+    return (
+      <div className='w-full min-h-screen bg-slate-700  flex flex-col items-center justify-center py-5'>
+        <h1 className='text-white text-4xl font-semibold m-5'>
+          Your <i>Gradiance</i>
+        </h1>
+        <div className='flex w-full flex-row items-center justify-center'>
+          <div className='w-5/6 flex flex-col justify-center items-center'>
+            {interpolatedSongs &&
+              startSong &&
+              endSong &&
+              [startSong, ...interpolatedSongs, endSong].map(
+                (result: any, idx: number) =>
+                  result.album && (
+                    <motion.div
+                      style={{
+                        backgroundColor: colors[idx]
+                          ? (colors[idx] as tinycolor.Instance).toHexString()
+                          : '#222',
+                        color: colors[idx]
+                          ? textColor(colors[idx] as tinycolor.Instance, [
+                              tinycolor('white')
+                            ])
+                          : 'white'
+                      }}
+                      initial={{ x: -20, height: '0%' }}
+                      animate={{ x: 0, height: '100%' }}
+                      className='px-4 hover:bg-green-700 hover:cursor-pointer rounded-2xl md:p-2 flex flex-row w-full justify-start items-center'
+                      key={result.id}
+                    >
+                      <img
+                        className='object-contain w-10 h-10 md:w-20 md:h-20 aspect-square'
+                        src={result.album.images[1].url}
+                        alt='tites'
                       />
-                    </audio>
-                  </motion.div>
-                )
-            )}
+                      <div className='overflow-x-hidden flex flex-col m-2 w-full justify-center items-start'>
+                        <h1 className='whitespace-nowrap truncate'>
+                          {result.name}
+                        </h1>
+                        <p className='whitespace-nowrap truncate'>
+                          {result.artists[0].name}
+                        </p>
+                      </div>
+                      <audio className='w-1/2 hidden md:block mx-4' controls>
+                        <source
+                          className='bg-slate-900'
+                          src={result.preview_url}
+                          type='audio/mp3'
+                        />
+                      </audio>
+                    </motion.div>
+                  )
+              )}
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return <Login />
+  }
 }
