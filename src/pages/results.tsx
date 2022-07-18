@@ -122,7 +122,7 @@ export default function Results() {
           Your <i>Gradiance</i>
         </h1>
         <div className="flex w-full flex-row items-center justify-center">
-          <div className="flex w-5/6 flex-col items-center justify-center">
+          <div className="flex w-5/6 md:w-3/4 flex-col items-center justify-center">
             {interpolatedSongs &&
               startSong &&
               endSong &&
