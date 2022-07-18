@@ -1,0 +1,30 @@
+import NextAuth, { User, type NextAuthOptions } from "next-auth";
+import SpotifyProvider, { SpotifyProfile } from "next-auth/providers/spotify";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { Session } from "inspector";
+import { JWT } from "next-auth/jwt";
+
+export const authOptions: NextAuthOptions = {
+  // Configure one or more authentication providers
+  providers: [
+    SpotifyProvider({
+      authorization:
+      'https://accounts.spotify.com/authorize?scope=user-read-email,playlist-read-private',
+      clientId: process.env.SPOTIFY_CLIENT_ID as string,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET as string,
+    })
+  ],
+  callbacks: {
+    async jwt({token, account}) {
+      if (account) {
+        token.accessToken = account.refresh_token;
+      }
+      return token;
+    },
+    async session({session, token}) {
+      return session;
+    },
+  },
+};
+
+export default NextAuth(authOptions);
