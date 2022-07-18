@@ -5,7 +5,10 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import SpotifySearch from '../components/spotifysearch'
 import Link from 'next/link'
-
+import TabButton from '../components/tabbutton'
+import tinycolor from 'tinycolor2';
+import featuresToColors from '../libs/featuresToColor';
+import textColor from '../libs/textColor';
 
 /*
 TODO: 
@@ -19,90 +22,96 @@ TODO:
 
 */
 
-
 const Home: NextPage = () => {
   const { data: session } = useSession()
   const [startSong, setStartSong] = useState({ id: '', name: '', img: '' })
   const [endSong, setEndSong] = useState({ id: '', name: '', img: '' })
-  const [openTab, setOpenTab] = useState<number>(-1)
+  const [openTab, setOpenTab] = useState<number>(0)
+  const [startColor, setStartColor] = useState(tinycolor("gray"))
+  const [endColor, setEndColor] = useState(tinycolor("gray"))
 
 
+  useEffect(() => {
+    fetch('/api/audio-features?ids=' + startSong.id + ',' + endSong.id)
+      .then(res => res.json())
+      .then(data => {
+        if (data[0]) {
+          setStartColor(featuresToColors(data[0]))
+        } 
+        if (data[1]){
+
+          setEndColor(featuresToColors(data[1]))
+        }
+        
+      })
+  }, [startSong, endSong])
 
   if (session) {
     return (
-      <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-10 bg-slate-900 text-white'>
-        <div className='absolute top-5 right-5 border-2 bg-slate-400 flex flex-col p-2 rounded-2xl'>
-          Hey, {session?.user?.name}
-          <button className='hover:text-blue-200' onClick={() => signOut()}>
-            Sign out
-          </button>
-        </div>
+      <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-5 bg-slate-900 text-white'>
         <div className='pt-20 w-5/6 h-full lg:w-3/4 flex flex-col items-center justify-center'>
           <div className='flex-row flex w-full items-center justify-center font-semibold'>
-            <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-center p-2
-            ${openTab == 0 ? 'bg-slate-700' : 'bg-blue-500'} `}
-              onClick={() => setOpenTab(0)}
+            <TabButton
+              tabNumber={0}
+              color={startColor}
+              setOpenTab={setOpenTab}
+              display={openTab === 0}
+              song={startSong}
             >
-              {startSong.img && (
-                <img
-                  className='h-3/4 aspect-square mx-5 rounded hidden md:block'
-                  alt={startSong.name}
-                  src={startSong.img}
-                />
-              )}
-              Select Starting Song
-            </button>
-            <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-center p-2
-            ${openTab == 1 ? 'bg-slate-700' : 'bg-blue-500'} `}
-              onClick={() => setOpenTab(1)}
+              <h1 style={{color: textColor(startColor, [tinycolor("white")])}} className='m-2 font-semibold md:text-xl'>Start Song</h1>
+            </TabButton>
+            <TabButton
+              tabNumber={1}
+              color={endColor}
+              setOpenTab={setOpenTab}
+              display={openTab === 1}
+              song={endSong}
             >
-              {endSong.img && (
-                <img
-                  className='h-3/4 aspect-square mx-5 rounded hidden md:block'
-                  alt={endSong.name}
-                  src={endSong.img}
-                />
-              )}
-              Select Ending Song
-            </button>
+              <h1 style={{color: textColor(endColor, [tinycolor("white")])}} className='m-2 font-semibold md:text-xl'>End Song</h1>
+            </TabButton>
             <Link
-                href={{
-                  pathname: '/results',
-                  query: { startId: startSong.id, endId: endSong.id }
-                }}
-              >
-            <button
-              className={`w-1/3 h-20 flex flex-row items-center justify-center  p-2 
-            ${openTab == 2 ? 'bg-slate-700' : 'bg-blue-500'} `}
-              onClick={() => setOpenTab(2)}
+              href={{
+                pathname: '/results',
+                query: { startId: startSong.id, endId: endSong.id }
+              }}
             >
-              
-                <a>Generate your <i>Gradiance</i></a>
-              
-            </button>
+              <button
+                className={`w-1/3 h-20 flex flex-row items-center justify-center bg-green-500 rounded-tr-xl p-2 md:text-xl`}
+                onClick={() => setOpenTab(2)}
+              >
+                <a>
+                  Generate your <i>Gradiance</i>
+                </a>
+              </button>
             </Link>
           </div>
           <SpotifySearch
             display={openTab == 0}
+            color={startColor}
             setSong={setStartSong}
             title={'First Song'}
           />
           <SpotifySearch
             display={openTab == 1}
+            color={endColor}
             setSong={setEndSong}
             title={'Second Song'}
           />
+          <div className='m-10 border-2 bg-slate-400 flex flex-col p-2 rounded-2xl'>
+            Hey, {session?.user?.name}
+            <button className='hover:text-blue-200' onClick={() => signOut()}>
+              Sign out
+            </button>
+          </div>
         </div>
       </div>
     )
   }
   return (
-    <>
+    <div className="bg-slate-800 text-white flex flex-col items-center justify-center text-4xl w-full h-screen">
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
+      <button className="border-2 p-4 border-white rounded-2xl m-10" onClick={() => signIn()}>Sign in</button>
+    </div>
   )
 }
 

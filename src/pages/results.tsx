@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import tinycolor from 'tinycolor2'
 import { motion } from 'framer-motion'
 import textColor from '../libs/textColor'
+import featuresToColors from '../libs/featuresToColor'
 
 function interpolate (features1: any, features2: any, t: number) {
   const features: any = {}
@@ -23,7 +24,7 @@ export default function Results () {
   const [startSong, setStartSong] = useState(null)
   const [endSong, setEndSong] = useState(null)
   const numSongs = 10
-  const [colors, setColors] = useState<tinycolor.Instance[]>(new Array(numSongs+2).fill(tinycolor("green")))
+  const [colors, setColors] = useState<tinycolor.Instance[]>(new Array(numSongs+2).fill(tinycolor("gray")))
   const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([])
   const ids = useRef(new Set([startId, endId]))
 
@@ -107,20 +108,14 @@ export default function Results () {
           return null
         }
         setColors(
-          data.map((features: any) => {
-            return tinycolor({
-              r: features.danceability * 255,
-              g: features.valence * 255,
-              b: features.energy * 255
-            })
-          })
+          data.map((features: any) => featuresToColors(features))
         )
       })
   }, [interpolatedSongs, startId, endId])
 
   return (
-    <div className='w-full min-h-screen bg-slate-900  flex flex-col items-center justify-center'>
-      <h1 className="text-white text-4xl font-semibold pt-10 m-5">Your <i>Gradiance</i></h1>
+    <div className='w-full min-h-screen bg-slate-900  flex flex-col items-center justify-center py-5'>
+      <h1 className="text-white text-4xl font-semibold m-5">Your <i>Gradiance</i></h1>
       <div className='flex w-full flex-row items-center justify-center'>
         <div className='w-5/6 flex flex-col justify-center items-center'>
           {interpolatedSongs &&
@@ -131,9 +126,8 @@ export default function Results () {
                 result.album && (
                   <motion.div
                     style={ {
-                      backgroundColor: colors[idx] &&
-                        (colors[idx] as tinycolor.Instance).toHexString(),
-                      color: colors[idx] && textColor(colors[idx] as tinycolor.Instance, [tinycolor("white")])
+                      backgroundColor: colors[idx] ?  (colors[idx] as tinycolor.Instance).toHexString() : 'lightgreen',
+                      color: colors[idx] ? textColor(colors[idx] as tinycolor.Instance, [tinycolor("white")]) : 'white',
                     }}
                     initial={{ x: -20, height: '0%' }}
                     animate={{ x: 0, height: '100%' }}
