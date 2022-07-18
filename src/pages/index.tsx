@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import SpotifySearch from '../components/spotifysearch'
-
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   const { data: session } = useSession()
@@ -13,7 +13,9 @@ const Home: NextPage = () => {
   const [openTab, setOpenTab] = useState<number>(-1)
 
   useEffect(() => {
-    fetch('/api/audio-features?startId=' + startSong.id + "&endId=" + endSong.id)
+    fetch(
+      '/api/audio-features?startId=' + startSong.id + '&endId=' + endSong.id
+    )
       .then(res => res.json())
       .then(data => console.log(data))
   }, [startSong, endSong])
@@ -21,9 +23,11 @@ const Home: NextPage = () => {
   if (session) {
     return (
       <div className='min-h-screen pb-32 overflow-x-hidden w-full flex flex-col items-center justify-start pt-10 bg-slate-900 text-white'>
-        <div className="absolute top-5 right-5 border-2 bg-slate-400 flex flex-col p-2 rounded-2xl">
-        Hey, {session?.user?.name}
-        <button className="hover:text-blue-200" onClick={() => signOut()}>Sign out</button>
+        <div className='absolute top-5 right-5 border-2 bg-slate-400 flex flex-col p-2 rounded-2xl'>
+          Hey, {session?.user?.name}
+          <button className='hover:text-blue-200' onClick={() => signOut()}>
+            Sign out
+          </button>
         </div>
         <div className='pt-20 w-5/6 h-full lg:w-3/4 flex flex-col items-center justify-center'>
           <div className='flex-row flex w-full items-center justify-center font-semibold'>
@@ -47,7 +51,11 @@ const Home: NextPage = () => {
               onClick={() => setOpenTab(1)}
             >
               {endSong.img && (
-                <img className='h-3/4 aspect-square mx-5 rounded hidden md:block' alt={endSong.name} src={endSong.img} />
+                <img
+                  className='h-3/4 aspect-square mx-5 rounded hidden md:block'
+                  alt={endSong.name}
+                  src={endSong.img}
+                />
               )}
               Select Ending Song
             </button>
@@ -56,7 +64,14 @@ const Home: NextPage = () => {
             ${openTab == 2 ? 'bg-slate-700' : 'bg-blue-500'} `}
               onClick={() => setOpenTab(2)}
             >
-              Generate my Gradiance
+              <Link
+                href={{
+                  pathname: '/results',
+                  query: { startId: startSong.id, endId: endSong.id }
+                }}
+              >
+                <a>path</a>
+              </Link>
             </button>
           </div>
           <SpotifySearch
