@@ -15,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log("HI", response)
     return res.status(200).json(audio_features);
   }
+  return res.status(400).json({error: "No ids provided"});
 
 
 };

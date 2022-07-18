@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react'
 import SpotifySearch from '../components/spotifysearch'
 import Link from 'next/link'
 import TabButton from '../components/tabbutton'
-import tinycolor from 'tinycolor2';
-import featuresToColors from '../libs/featuresToColor';
-import textColor from '../libs/textColor';
+import tinycolor from 'tinycolor2'
+import featuresToColors from '../libs/featuresToColor'
+import textColor from '../libs/textColor'
 
 /*
 TODO: 
@@ -27,9 +27,8 @@ const Home: NextPage = () => {
   const [startSong, setStartSong] = useState({ id: '', name: '', img: '' })
   const [endSong, setEndSong] = useState({ id: '', name: '', img: '' })
   const [openTab, setOpenTab] = useState<number>(0)
-  const [startColor, setStartColor] = useState(tinycolor("#333333"))
-  const [endColor, setEndColor] = useState(tinycolor("#222222"))
-
+  const [startColor, setStartColor] = useState(tinycolor('#333333'))
+  const [endColor, setEndColor] = useState(tinycolor('#222222'))
 
   useEffect(() => {
     fetch('/api/audio-features?ids=' + startSong.id + ',' + endSong.id)
@@ -37,12 +36,10 @@ const Home: NextPage = () => {
       .then(data => {
         if (data[0]) {
           setStartColor(featuresToColors(data[0]))
-        } 
-        if (data[1]){
-
+        }
+        if (data[1]) {
           setEndColor(featuresToColors(data[1]))
         }
-        
       })
   }, [startSong, endSong])
 
@@ -58,7 +55,12 @@ const Home: NextPage = () => {
               display={openTab === 0}
               song={startSong}
             >
-              <h1 style={{color: textColor(startColor, [tinycolor("white")])}} className='m-2 font-semibold md:text-xl'>Start Song</h1>
+              <h1
+                style={{ color: textColor(startColor, [tinycolor('white')]) }}
+                className='m-2 font-semibold md:text-xl'
+              >
+                Start Song
+              </h1>
             </TabButton>
             <TabButton
               tabNumber={1}
@@ -67,7 +69,12 @@ const Home: NextPage = () => {
               display={openTab === 1}
               song={endSong}
             >
-              <h1 style={{color: textColor(endColor, [tinycolor("white")])}} className='m-2 font-semibold md:text-xl'>End Song</h1>
+              <h1
+                style={{ color: textColor(endColor, [tinycolor('white')]) }}
+                className='m-2 font-semibold md:text-xl'
+              >
+                End Song
+              </h1>
             </TabButton>
             <Link
               href={{
@@ -108,9 +115,15 @@ const Home: NextPage = () => {
     )
   }
   return (
-    <div className="bg-slate-800 text-white flex flex-col items-center justify-center text-4xl w-full h-screen">
+    <div className='bg-slate-800 text-white flex flex-col items-center justify-center text-4xl w-full h-screen'>
       Not signed in <br />
-      <button className="border-2 p-4 border-white rounded-2xl m-10" onClick={() => signIn()}>Sign in</button>
+      <button
+        className='bg-green-900 p-4 w-3/4 md:w-1/3 h-24 flex flex-row items-center justify-center border-white rounded-2xl m-10'
+        onClick={() => signIn('spotify')}
+      >
+        <div className='w-1/2 hidden md:block'>Sign in with</div>{' '}
+        <img className='h-full' src='/spotify_logo.png'></img>
+      </button>
     </div>
   )
 }
