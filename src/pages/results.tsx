@@ -34,11 +34,13 @@ export default function Results () {
     fetch(`/api/search-by-id?id=${startId}`)
         .then(res => res.json())
         .then(data => {
+            data.t = 0
             setStartSong(data)
         })
     fetch(`/api/search-by-id?id=${endId}`)
         .then(res => res.json())
         .then(data => {
+            data.t = 1.2
             setEndSong(data)
         })
     fetch('/api/audio-features?startId=' + startId + '&endId=' + endId)
@@ -118,6 +120,7 @@ export default function Results () {
                 src={result.album.images[1].url}
                 alt='tites'
               />
+              <div>{result.t}</div>
               <div className='overflow-x-hidden flex flex-col m-2 w-full justify-center items-start'>
                 <h1 className='whitespace-nowrap truncate'>{result.name}</h1>
                 <p className='whitespace-nowrap truncate'>
