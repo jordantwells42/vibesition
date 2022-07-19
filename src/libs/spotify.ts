@@ -38,7 +38,8 @@ export const getSearch = async (refresh_token: string, query: string) => {
   const querystring = new URLSearchParams({
     q: query,
     type: 'track',
-    limit: '5'
+    limit: '5',
+    market: "US"
   }).toString()
   return fetch(SEARCH_ENDPOINT + "?" + querystring, {
     headers: {
@@ -51,6 +52,7 @@ export const getSearchById = async (refresh_token: string, ids: string) => {
     const { access_token } = await getAccessToken(refresh_token)
     const querystring = new URLSearchParams({
       ids: ids,
+      market: "US"
     }).toString()
 
     return fetch(TRACK_BY_ID_ENDPOINT + "?" + querystring, {
@@ -78,6 +80,7 @@ export const getAudioFeatures = async (refresh_token: string, ids: string) => {
         seed_artists: '',
         seed_genres: '',
         seed_tracks: [interpolation.startId, interpolation.endId].join(","),
+        market: "US",
         limit: String(limit),
         target_energy: interpolation.energy,
         target_danceability: interpolation.danceability,
