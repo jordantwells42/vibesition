@@ -139,7 +139,7 @@ const Home: NextPage = () => {
           />
           <div
             className={
-              "m-10 flex w-3/4 flex-col rounded-2xl p-4 text-center text-white md:w-1/3"
+              "m-10 flex w-3/4 flex-col rounded-2xl p-4 text-center text-xl text-white md:w-1/3"
             }
             style={{
               backgroundColor: tinycolor("#1ed760")
