@@ -7,6 +7,7 @@ import textColor from "../libs/textColor";
 import featuresToColors from "../libs/featuresToColor";
 import Login from "../components/login";
 import { useSession } from "next-auth/react";
+import Player from '../components/player';
 
 function interpolate(features1: any, features2: any, t: number) {
   const features: any = {};
@@ -150,20 +151,14 @@ export default function Results() {
                         alt="tites"
                       />
                       <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
-                        <h1 className="text-center font-semibold truncate whitespace-nowrap">
+                        <h1 className="text-left font-semibold truncate whitespace-nowrap">
                           {result.name}
                         </h1>
-                        <p className="text-center truncate whitespace-nowrap">
+                        <p className="text-left truncate whitespace-nowrap">
                           {result.artists[0].name}
                         </p>
                       </div>
-                      <audio className="mx-4 hidden w-5/6 md:block" controls>
-                        <source
-                          className="bg-slate-900"
-                          src={result.preview_url}
-                          type="audio/mp3"
-                        />
-                      </audio>
+                      <Player src={result.preview_url} />
                     </motion.div>
                   )
               )}

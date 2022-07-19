@@ -55,7 +55,7 @@ export default function SpotifySearch({
         }}
         value={searchQuery}
         placeholder={"Red (Taylor's Version)"}
-        className="my-2 w-full rounded-2xl px-2 text-2xl placeholder-black md:px-4"
+        className="my-2 w-full rounded-2xl p-2 text-2xl placeholder-black md:px-4"
         onChange={(evt) => setSearchQuery(evt.target.value)}
       />
       <div className="flex w-full flex-col items-center justify-start">

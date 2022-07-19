@@ -3,6 +3,7 @@ import PlusIcon from "./plusicon";
 import { motion } from "framer-motion";
 import tinycolor from "tinycolor2";
 import textColor from "../libs/textColor";
+import Player from './player';
 export default function SongInSearch({
   song,
   setSong,
@@ -58,15 +59,9 @@ export default function SongInSearch({
           {song.artists[0].name}
         </p>
       </div>
-      <audio className="mx-4 hidden w-1/2 md:block" controls>
-        <source
-          className="bg-slate-900"
-          src={song.preview_url}
-          type="audio/mp3"
-        />
-      </audio>
+      <Player src={song.preview_url} />
       <PlusIcon
-        className="h-6 w-6 cursor-pointer"
+        className="h-12 w-12 md:ml-10 cursor-pointer"
         onClick={() =>
           setSong({
             id: song.id,
