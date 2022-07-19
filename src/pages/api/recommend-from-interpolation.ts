@@ -6,7 +6,6 @@ import { getToken } from 'next-auth/jwt';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({req});
   const {query} = req;
-  
   if (query.interpolation && token){
     const {interpolation} = query;
     let limit: number;

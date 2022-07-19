@@ -54,7 +54,7 @@ const Home: NextPage = () => {
           <div className="m-5 flex flex-row items-center justify-center ">
             <Link href="/">
               <a>
-                <img src="/logo.svg" className="w-10" />
+                <img src="/logo.svg" className="w-10 mx-3" />
               </a>
             </Link>
             <h1 className="text-4xl font-semibold">

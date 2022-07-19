@@ -12,6 +12,7 @@ import Player from "../components/player";
 import SongCard from "../components/songcard";
 import Link from "next/link";
 import Footer from "../components/footer";
+import { handleClientScriptLoad } from "next/script";
 
 function interpolate(features1: any, features2: any, t: number) {
   const features: any = {};
@@ -36,6 +37,8 @@ export default function Results() {
     new Array(numSongs + 2).fill(tinycolor("gray"))
   );
   const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([]);
+  const [playlistName, setPlaylistName] = useState("");
+  const [playlistUrl, setPlaylistUrl] = useState("");
   const ids = useRef(new Set([startId, endId]));
 
   useEffect(() => {
@@ -114,18 +117,28 @@ export default function Results() {
         setColors(data.map((features: any) => featuresToColors(features)));
       });
   }, [interpolatedSongs, startId, endId]);
+
+
+  function handleCreatePlaylist(){
+    fetch(`/api/create-playlist?name=${playlistName}&ids=` + [startId, ...interpolatedSongs.map((s) => s.id), endId].map(((s) => "spotify:track:"+s)).join(","))
+      .then((res) => res.json())
+      .then((data) => {
+        setPlaylistUrl(data.external_urls.spotify);
+      })
+  }
+  
   if (session) {
     return (
       <div className="relative flex min-h-screen  w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
 <div className="m-5 flex flex-row items-center justify-center ">
             <Link href="/">
               <a>
-                <img src="/logo.svg" className="w-10" />
+                <img src="/logo.svg" className="w-10 mx-3" />
               </a>
             </Link>
             <h1 className="text-4xl font-semibold">
               <b>
-                <i>Vibesition</i>
+                Your <i>Vibesition</i>
               </b>
             </h1>
           </div>
@@ -145,6 +158,15 @@ export default function Results() {
               )}
           </div>
         </div>
+        <div className="bg-stone-800 p-3 my-5 flex flex-col rounded-2xl text-xl ">
+          <div className="flex flex-row justify-between items-center">
+          <input value={playlistName} onChange={evt => setPlaylistName(evt.target.value)} className="rounded-xl p-2 text-stone-900" placeholder="My Vibe Transition"></input>
+        <button style={{backgroundColor: tinycolor("#1ed760").desaturate(40).toHexString()}} className="rounded-xl  p-2 mx-3 text-white" onClick={handleCreatePlaylist} >
+          Create Playlist</button>
+          </div>
+          {playlistUrl && <div className="text-white"><a href={playlistUrl}>{playlistUrl}</a></div>}
+        </div>
+        
         <Footer />
       </div>
     );
