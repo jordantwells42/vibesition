@@ -118,30 +118,34 @@ export default function Results() {
       });
   }, [interpolatedSongs, startId, endId]);
 
-
-  function handleCreatePlaylist(){
-    fetch(`/api/create-playlist?name=${playlistName}&ids=` + [startId, ...interpolatedSongs.map((s) => s.id), endId].map(((s) => "spotify:track:"+s)).join(","))
+  function handleCreatePlaylist() {
+    fetch(
+      `/api/create-playlist?name=${playlistName}&ids=` +
+        [startId, ...interpolatedSongs.map((s) => s.id), endId]
+          .map((s) => "spotify:track:" + s)
+          .join(",")
+    )
       .then((res) => res.json())
       .then((data) => {
         setPlaylistUrl(data.external_urls.spotify);
-      })
+      });
   }
-  
+
   if (session) {
     return (
       <div className="relative flex min-h-screen  w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
-<div className="m-5 flex flex-row items-center justify-center ">
-            <Link href="/">
-              <a>
-                <img src="/logo.svg" className="w-10 mx-3" />
-              </a>
-            </Link>
-            <h1 className="text-4xl font-semibold">
-              <b>
-                Your <i>Vibesition</i>
-              </b>
-            </h1>
-          </div>
+        <div className="m-5 flex flex-row items-center justify-center ">
+          <Link href="/">
+            <a>
+              <img src="/logo.svg" className="mx-3 w-10" />
+            </a>
+          </Link>
+          <h1 className="text-4xl font-semibold">
+            <b>
+              Your <i>Vibesition</i>
+            </b>
+          </h1>
+        </div>
         <div className="flex w-full flex-row items-center justify-center">
           <div className="flex w-5/6 flex-row flex-wrap items-center justify-center md:w-3/4">
             {interpolatedSongs &&
@@ -158,15 +162,33 @@ export default function Results() {
               )}
           </div>
         </div>
-        <div className="bg-stone-800 p-3 my-5 flex flex-col rounded-2xl text-xl ">
-          <div className="flex flex-row justify-between items-center">
-          <input value={playlistName} onChange={evt => setPlaylistName(evt.target.value)} className="rounded-xl p-2 text-stone-900" placeholder="My Vibe Transition"></input>
-        <button style={{backgroundColor: tinycolor("#1ed760").desaturate(40).toHexString()}} className="rounded-xl  p-2 mx-3 text-white" onClick={handleCreatePlaylist} >
-          Create Playlist</button>
+        <div className="my-5 flex flex-col rounded-2xl bg-stone-800 p-3 text-xl ">
+          <div className="flex flex-row items-center justify-between">
+            <input
+              value={playlistName}
+              onChange={(evt) => setPlaylistName(evt.target.value)}
+              className="rounded-xl p-2 text-stone-900"
+              placeholder="My Vibe Transition"
+            ></input>
+            <button
+              style={{
+                backgroundColor: tinycolor("#1ed760")
+                  .desaturate(40)
+                  .toHexString(),
+              }}
+              className="mx-3  rounded-xl p-2 text-white"
+              onClick={handleCreatePlaylist}
+            >
+              Create Playlist
+            </button>
           </div>
-          {playlistUrl && <div className="text-white"><a href={playlistUrl}>{playlistUrl}</a></div>}
+          {playlistUrl && (
+            <div className="text-white">
+              <a href={playlistUrl}>{playlistUrl}</a>
+            </div>
+          )}
         </div>
-        
+
         <Footer />
       </div>
     );
