@@ -40,11 +40,11 @@
        inkscape:collect="always"
        id="linearGradient466">
       <stop
-         style="stop-color:#164450;stop-opacity:1"
+         style="stop-color:#005522;stop-opacity:1"
          offset="0"
          id="stop462" />
       <stop
-         style="stop-color:#afe9dd;stop-opacity:1"
+         style="stop-color:#aaffaa;stop-opacity:1"
          offset="1"
          id="stop464" />
     </linearGradient>
@@ -52,10 +52,10 @@
        inkscape:collect="always"
        xlink:href="#linearGradient466"
        id="linearGradient468"
-       x1="48.584225"
-       y1="52.922096"
-       x2="172.35832"
-       y2="130.13632"
+       x1="128.69037"
+       y1="281.96201"
+       x2="122.32814"
+       y2="17.351513"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g

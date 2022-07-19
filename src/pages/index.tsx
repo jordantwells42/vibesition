@@ -12,6 +12,7 @@ import tinycolor from "tinycolor2";
 import featuresToColors from "../libs/featuresToColor";
 import textColor from "../libs/textColor";
 import Login from "../components/login";
+import Footer from "../components/footer";
 
 /*
 TODO: 
@@ -48,18 +49,24 @@ const Home: NextPage = () => {
 
   if (session) {
     return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-slate-700  text-white">
-        <div className="w-full md:w-5/6 relative ">
+      <div className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden  bg-green-50 text-stone-900">
+        <div className="relative w-full md:w-5/6 ">
           <Link href="/">
             <a>
-        <img src="/logo.svg" className="w-20 absolute top-0 left-0 md:top-5 lg:left-5 " />
-        </a>
-        </Link>
+              <img
+                src="/logo.svg"
+                className="absolute top-0 left-0 w-20 md:top-5 lg:left-5 "
+              />
+            </a>
+          </Link>
         </div>
-        <div className="flex py-10 h-full w-5/6 flex-col items-center justify-center lg:w-3/4">
+        <div className="flex h-full w-5/6 flex-col items-center justify-center py-10 lg:w-3/4">
           <h1 className="text-4xl font-bold italic">Vibesition</h1>
           <div className="m-2"></div>
-          <h2 className="text-center text-2xl">Create a seamless <i>vibe</i> transition from song to another</h2>
+          <h2 className="text-center text-2xl">
+            Create a seamless transition from one song&apos;s <i>vibe</i> to
+            another
+          </h2>
           <div className="m-4"></div>
           <div className="flex w-full flex-row items-center justify-center font-semibold">
             <TabButton
@@ -90,29 +97,30 @@ const Home: NextPage = () => {
                 End Song
               </h1>
             </TabButton>
-            
-              <button
-                style={{
-                  backgroundColor:
-                    startSong.id && endSong.id
-                      ? tinycolor("#1ed760").desaturate(20).toHexString()
-                      : tinycolor("#1ed760").desaturate(40).toHexString(),
-                }}
-                className={`flex h-20 w-1/3 flex-row font-bold items-center justify-center rounded-tr-xl p-2 md:text-xl`}
-                onClick={() => setOpenTab(2)}
-              >{startSong.id && endSong.id &&
-                <Link
-              href={{
-                pathname: "/results",
-                query: { startId: startSong.id, endId: endSong.id },
+
+            <button
+              style={{
+                backgroundColor:
+                  startSong.id && endSong.id
+                    ? tinycolor("#1ed760").desaturate(20).toHexString()
+                    : tinycolor("#1ed760").desaturate(40).toHexString(),
               }}
+              className={`flex h-20 w-1/3 flex-row items-center justify-center rounded-tr-xl p-2 font-bold md:text-xl`}
+              onClick={() => setOpenTab(2)}
             >
-                 <a>
-                  Generate your <i>Vibesition</i>
-                </a>
-                </Link>}
-              </button>
-            
+              {startSong.id && endSong.id && (
+                <Link
+                  href={{
+                    pathname: "/results",
+                    query: { startId: startSong.id, endId: endSong.id },
+                  }}
+                >
+                  <a>
+                    Generate your <i>Vibesition</i>
+                  </a>
+                </Link>
+              )}
+            </button>
           </div>
           <SpotifySearch
             display={openTab == 0}
@@ -126,13 +134,23 @@ const Home: NextPage = () => {
             setSong={setEndSong}
             title={"Second Song"}
           />
-          <div className="m-10 flex flex-col rounded-2xl border-2 bg-slate-400 p-2">
+          <div
+            className={
+              "m-10 flex w-3/4 flex-col rounded-2xl p-4 text-center text-white md:w-1/3"
+            }
+            style={{
+              backgroundColor: tinycolor("#1ed760")
+                .desaturate(40)
+                .toHexString(),
+            }}
+          >
             Hey, {session?.user?.name}
             <button className="hover:text-blue-200" onClick={() => signOut()}>
               Sign out
             </button>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

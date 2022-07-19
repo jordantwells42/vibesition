@@ -8,9 +8,10 @@ import textColor from "../libs/textColor";
 import featuresToColors from "../libs/featuresToColor";
 import Login from "../components/login";
 import { useSession } from "next-auth/react";
-import Player from '../components/player';
+import Player from "../components/player";
 import SongCard from "../components/songcard";
-import Link from 'next/link';
+import Link from "next/link";
+import Footer from "../components/footer";
 
 function interpolate(features1: any, features2: any, t: number) {
   const features: any = {};
@@ -34,7 +35,7 @@ export default function Results() {
   const [colors, setColors] = useState<tinycolor.Instance[]>(
     new Array(numSongs + 2).fill(tinycolor("gray"))
   );
-  const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([])
+  const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([]);
   const ids = useRef(new Set([startId, endId]));
 
   useEffect(() => {
@@ -115,28 +116,39 @@ export default function Results() {
   }, [interpolatedSongs, startId, endId]);
   if (session) {
     return (
-      <div className="flex min-h-screen w-full  flex-col items-center justify-start bg-slate-700">
-                <div className="w-full md:w-5/6 relative ">
+      <div className="relative flex min-h-screen  w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
+        <div className="relative w-full md:w-5/6 ">
           <Link href="/">
             <a>
-        <img src="/logo.svg" className="w-20 absolute top-0 left-0 md:top-5 md:left-5 " />
-        </a>
-        </Link>
+              <img
+                src="/logo.svg"
+                className="absolute top-0 left-0 w-20 md:top-5 md:left-5 "
+              />
+            </a>
+          </Link>
         </div>
-        <h1 className="m-5 text-4xl font-semibold text-white  py-5">
-          Your <i>Vibesition</i> {false && startSong && endSong && `from ${startSong.name} to ${endSong.name}`}
+        <h1 className="m-5 max-w-prose pb-5 text-4xl font-semibold">
+          <b>
+            Your <i>Vibesition</i>
+          </b>
         </h1>
         <div className="flex w-full flex-row items-center justify-center">
-          <div className="flex w-5/6 md:w-3/4 flex-row flex-wrap items-center justify-center">
+          <div className="flex w-5/6 flex-row flex-wrap items-center justify-center md:w-3/4">
             {interpolatedSongs &&
               startSong &&
               endSong &&
               [startSong, ...interpolatedSongs, endSong].map(
-                (result: any, idx: number) =>
-                  <SongCard song={result} key={idx} color={colors[idx] || tinycolor("#222")} />
+                (result: any, idx: number) => (
+                  <SongCard
+                    song={result}
+                    key={idx}
+                    color={colors[idx] || tinycolor("#222")}
+                  />
+                )
               )}
           </div>
         </div>
+        <Footer />
       </div>
     );
   } else {
