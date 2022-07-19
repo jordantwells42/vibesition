@@ -24,13 +24,13 @@ export default function SongCard({
     }
   };
 
-  const variants ={
+  const variants:any ={
     playing: {
-        y: "5%",
-        transition: {repeat:Infinity, repeatType:"mirror", ease:"easeInOut"}
+        scale: 1.02,
+        transition: {repeat:Infinity,repeatType: "mirror", ease:"easeInOut", duration: 0.3}
     },
     paused: {
-        x: "0%",
+        scale: 1.0,
         transition:{}
     }
   }
