@@ -119,7 +119,7 @@ export default function Results() {
                 <div className="w-full md:w-5/6 relative ">
           <Link href="/">
             <a>
-        <img src="/logo.svg" className="w-20 absolute top-0 left-5 md:top-5 md:left-5 " />
+        <img src="/logo.svg" className="w-20 absolute top-0 left-0 md:top-5 md:left-5 " />
         </a>
         </Link>
         </div>
