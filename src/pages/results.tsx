@@ -8,6 +8,7 @@ import featuresToColors from "../libs/featuresToColor";
 import Login from "../components/login";
 import { useSession } from "next-auth/react";
 import Player from '../components/player';
+import SongCard from "../components/songcard";
 
 function interpolate(features1: any, features2: any, t: number) {
   const features: any = {};
@@ -128,39 +129,7 @@ export default function Results() {
               endSong &&
               [startSong, ...interpolatedSongs, endSong].map(
                 (result: any, idx: number) =>
-                  result.album && (
-                    <motion.div layout
-                      style={{
-                        backgroundColor: colors[idx]
-                          ? (colors[idx] as tinycolor.Instance).toHexString()
-                          : "#222",
-                        color: colors[idx]
-                          ? textColor(colors[idx] as tinycolor.Instance, [
-                              tinycolor("white"),
-                            ])
-                          : "white",
-                      }}
-                      initial={{ x: -20, height: "0%" }}
-                      animate={{ x: 0, height: "100%" }}
-                      className="flex w-full   md:w-1/5 flex-col items-center justify-start rounded-2xl p-2 m-2 hover:cursor-pointer hover:bg-green-700 md:p-2"
-                      key={result.id}
-                    >
-                      <img
-                        className="rounded-xl aspect-square object-contain w-full"
-                        src={result.album.images[1].url}
-                        alt="tites"
-                      />
-                      <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
-                        <h1 className="text-left w-full font-semibold truncate whitespace-nowrap">
-                          {result.name}
-                        </h1>
-                        <p className="text-left w-full truncate whitespace-nowrap">
-                          {result.artists[0].name}
-                        </p>
-                      </div>
-                      <Player src={result.preview_url} />
-                    </motion.div>
-                  )
+                  <SongCard song={result} key={idx} color={colors[idx] || tinycolor("#222")} />
               )}
           </div>
         </div>
