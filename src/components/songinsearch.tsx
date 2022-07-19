@@ -21,7 +21,7 @@ export default function SongInSearch({
   color: tinycolor.Instance;
 }) {
   return (
-    <motion.div
+    <motion.div layout
       initial={{
         x: -20,
         height: "0%",

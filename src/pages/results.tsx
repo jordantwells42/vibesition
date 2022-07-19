@@ -30,7 +30,7 @@ export default function Results() {
   const [colors, setColors] = useState<tinycolor.Instance[]>(
     new Array(numSongs + 2).fill(tinycolor("gray"))
   );
-  const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([]);
+  const [interpolatedSongs, setInterpolatedSongs] = useState<any[]>([])
   const ids = useRef(new Set([startId, endId]));
 
   useEffect(() => {
@@ -122,14 +122,14 @@ export default function Results() {
           Your <i>Gradiance</i>
         </h1>
         <div className="flex w-full flex-row items-center justify-center">
-          <div className="flex w-5/6 md:w-3/4 flex-col items-center justify-center">
+          <div className="flex w-5/6 md:w-3/4 flex-row flex-wrap items-center justify-center">
             {interpolatedSongs &&
               startSong &&
               endSong &&
               [startSong, ...interpolatedSongs, endSong].map(
                 (result: any, idx: number) =>
                   result.album && (
-                    <motion.div
+                    <motion.div layout
                       style={{
                         backgroundColor: colors[idx]
                           ? (colors[idx] as tinycolor.Instance).toHexString()
@@ -142,23 +142,23 @@ export default function Results() {
                       }}
                       initial={{ x: -20, height: "0%" }}
                       animate={{ x: 0, height: "100%" }}
-                      className="flex w-full flex-row items-center justify-start rounded-2xl px-4 hover:cursor-pointer hover:bg-green-700 md:p-2"
+                      className="flex w-full   md:w-1/5 flex-col items-center justify-start rounded-2xl p-2 m-2 hover:cursor-pointer hover:bg-green-700 md:p-2"
                       key={result.id}
                     >
                       <img
-                        className="aspect-square h-10 w-10 object-contain md:h-20 md:w-20"
+                        className="rounded-xl aspect-square object-contain w-full"
                         src={result.album.images[1].url}
                         alt="tites"
                       />
-                      <div className="m-2 flex w-full flex-col items-start justify-center overflow-x-hidden">
-                        <h1 className="truncate whitespace-nowrap">
+                      <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
+                        <h1 className="text-center font-semibold truncate whitespace-nowrap">
                           {result.name}
                         </h1>
-                        <p className="truncate whitespace-nowrap">
+                        <p className="text-center truncate whitespace-nowrap">
                           {result.artists[0].name}
                         </p>
                       </div>
-                      <audio className="mx-4 hidden w-1/2 md:block" controls>
+                      <audio className="mx-4 hidden w-5/6 md:block" controls>
                         <source
                           className="bg-slate-900"
                           src={result.preview_url}
