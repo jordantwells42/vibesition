@@ -1,6 +1,6 @@
 # Gradiance
 
-[gradiance.jordantwells.com](gradiance.jordantwells.com)
+[gradiance.jordantwells.com](https://gradiance.jordantwells.com)
 
 Uses the Spotify API to create a "gradient" of songs from one song to another! 
 
