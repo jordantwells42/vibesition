@@ -36,17 +36,16 @@ export default function Results() {
   useEffect(() => {
     async function fetchSongs() {
       setInterpolatedSongs([]);
-      fetch(`/api/search-by-id?id=${startId}`)
+      fetch(`/api/search-by-id?ids=${startId},${endId}`)
         .then((res) => res.json())
         .then((data) => {
-          data.t = 0;
-          setStartSong(data);
+          setStartSong(data[0]);
+          setEndSong(data[1]);
         });
       fetch(`/api/search-by-id?id=${endId}`)
         .then((res) => res.json())
         .then((data) => {
-          data.t = 1.2;
-          setEndSong(data);
+
         });
       fetch("/api/audio-features?ids=" + startId + "," + endId)
         .then((res) => res.json())

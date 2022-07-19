@@ -5,7 +5,6 @@ import { getToken } from 'next-auth/jwt';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({req});
   const {query} = req;
-  console.log(query)
   
   if (query.q && token){
     const q = query.q as string;

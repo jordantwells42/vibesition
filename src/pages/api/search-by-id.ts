@@ -5,17 +5,16 @@ import { getToken } from 'next-auth/jwt';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({req});
   const {query} = req;
-  console.log(query)
   
-  if (query.id && token){
-    const id = query.id as string;
+  if (query.ids && token){
+    const ids = query.ids as string;
     const accessToken = token.accessToken as string;
-    const response = await getSearchById(accessToken, id);
-    const json = await response.json();
-    console.log(json)
-    return res.status(200).json(json);
+    const response = await getSearchById(accessToken, ids);
+    const {tracks} = await response.json();
+    console.log("yo", tracks)
+    return res.status(200).json(tracks);
   }
-
+  return res.status(400).json({error: "No id provided"});
 
 };
 

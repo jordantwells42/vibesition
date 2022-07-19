@@ -47,8 +47,12 @@ const Home: NextPage = () => {
 
   if (session) {
     return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-slate-700 pb-32 pt-5 text-white">
-        <div className="flex h-full w-5/6 flex-col items-center justify-center pt-20 lg:w-3/4">
+      <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-slate-700 py-10 text-white">
+        <div className="flex h-full w-5/6 flex-col items-center justify-center lg:w-3/4">
+          <h1 className="text-4xl font-bold italic">Gradiance</h1>
+          <div className="m-2"></div>
+          <h2 className="text-center text-2xl">Create a seamless playlist between two songs</h2>
+          <div className="m-4"></div>
           <div className="flex w-full flex-row items-center justify-center font-semibold">
             <TabButton
               tabNumber={0}

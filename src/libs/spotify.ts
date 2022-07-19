@@ -47,10 +47,13 @@ export const getSearch = async (refresh_token: string, query: string) => {
   })
 }
 
-export const getSearchById = async (refresh_token: string, id: string) => {
+export const getSearchById = async (refresh_token: string, ids: string) => {
     const { access_token } = await getAccessToken(refresh_token)
+    const querystring = new URLSearchParams({
+      ids: ids,
+    }).toString()
 
-    return fetch(TRACK_BY_ID_ENDPOINT + "/" + id, {
+    return fetch(TRACK_BY_ID_ENDPOINT + "?" + querystring, {
       headers: {
         Authorization: `Bearer ${access_token}`
       },
@@ -93,7 +96,6 @@ export const getAudioFeatures = async (refresh_token: string, ids: string) => {
         //target_time_signature: String(Math.floor(interpolation.time_signature)),
         
     }).toString()
-    console.log(querystring)
     return fetch(RECC_ENDPOINT + "?" + querystring, {
       headers: {
         Authorization: `Bearer ${access_token}`
