@@ -20,7 +20,7 @@ export default function TabButton({
     <button
       className={
         "flex h-20 w-1/3 flex-row items-center justify-center p-2 " +
-        (tabNumber === 0 ? "rounded-tl-xl" : "")
+        (tabNumber === 0 ? "rounded-tl-2xl" : tabNumber === 1 ? "rounded-tr-2xl" : "")
       }
       style={{
         backgroundColor: color.toHexString(),

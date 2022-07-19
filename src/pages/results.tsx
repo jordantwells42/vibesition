@@ -117,21 +117,18 @@ export default function Results() {
   if (session) {
     return (
       <div className="relative flex min-h-screen  w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
-        <div className="relative w-full md:w-5/6 ">
-          <Link href="/">
-            <a>
-              <img
-                src="/logo.svg"
-                className="absolute top-0 left-0 w-20 md:top-5 md:left-5 "
-              />
-            </a>
-          </Link>
-        </div>
-        <h1 className="m-5 max-w-prose pb-5 text-4xl font-semibold">
-          <b>
-            Your <i>Vibesition</i>
-          </b>
-        </h1>
+<div className="m-5 flex flex-row items-center justify-center ">
+            <Link href="/">
+              <a>
+                <img src="/logo.svg" className="w-10" />
+              </a>
+            </Link>
+            <h1 className="text-4xl font-semibold">
+              <b>
+                <i>Vibesition</i>
+              </b>
+            </h1>
+          </div>
         <div className="flex w-full flex-row items-center justify-center">
           <div className="flex w-5/6 flex-row flex-wrap items-center justify-center md:w-3/4">
             {interpolatedSongs &&

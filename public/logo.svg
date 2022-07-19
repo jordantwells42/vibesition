@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="125mm"
+   height="125mm"
+   viewBox="0 0 125 125"
    version="1.1"
    id="svg5"
    inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
@@ -64,7 +64,7 @@
      id="layer1">
     <path
        sodipodi:type="star"
-       style="fill:url(#linearGradient468);stroke-width:0.264583;fill-opacity:1"
+       style="fill:url(#linearGradient468);fill-opacity:1;stroke-width:0.264583"
        id="path240"
        inkscape:flatsided="true"
        sodipodi:sides="3"
@@ -79,6 +79,6 @@
        d="M 125.50925,172.55977 63.223815,64.67824 l 124.570865,-4e-6 z"
        inkscape:transform-center-x="1.5812189e-06"
        inkscape:transform-center-y="17.980254"
-       transform="translate(-17.351509,10.989289)" />
+       transform="translate(-63.043817,-48.005842)" />
   </g>
 </svg>

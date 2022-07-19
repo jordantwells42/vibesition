@@ -50,24 +50,25 @@ const Home: NextPage = () => {
   if (session) {
     return (
       <div className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden  bg-green-50 text-stone-900">
-        <div className="relative w-full md:w-5/6 ">
-          <Link href="/">
-            <a>
-              <img
-                src="/logo.svg"
-                className="absolute top-0 left-0 w-20 md:top-5 lg:left-5 "
-              />
-            </a>
-          </Link>
-        </div>
-        <div className="flex h-full w-5/6 flex-col items-center justify-center py-10 lg:w-3/4">
-          <h1 className="text-4xl font-bold italic">Vibesition</h1>
-          <div className="m-2"></div>
-          <h2 className="text-center text-2xl">
+        <div className="flex h-full w-5/6 flex-col items-center justify-center py-5 lg:w-3/4">
+          <div className="m-5 flex flex-row items-center justify-center ">
+            <Link href="/">
+              <a>
+                <img src="/logo.svg" className="w-10" />
+              </a>
+            </Link>
+            <h1 className="text-4xl font-semibold">
+              <b>
+                <i>Vibesition</i>
+              </b>
+            </h1>
+          </div>
+          <div className=""></div>
+          <h2 className="text-center text-2xl m-1">
             Create a seamless transition from one song&apos;s <i>vibe</i> to
             another
           </h2>
-          <div className="m-4"></div>
+          <div className=""></div>
           <div className="flex w-full flex-row items-center justify-center font-semibold">
             <TabButton
               tabNumber={0}
@@ -105,7 +106,7 @@ const Home: NextPage = () => {
                     ? tinycolor("#1ed760").desaturate(20).toHexString()
                     : tinycolor("#1ed760").desaturate(40).toHexString(),
               }}
-              className={`flex h-20 w-1/3 flex-row items-center justify-center rounded-tr-xl p-2 font-bold md:text-xl`}
+              className={`flex h-20 w-1/3 flex-row items-center justify-center rounded-t-2xl p-2 font-bold md:text-xl text-white border-green-100 border-l-2 border-t-2`}
               onClick={() => setOpenTab(2)}
             >
               {startSong.id && endSong.id && (
