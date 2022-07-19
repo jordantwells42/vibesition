@@ -151,10 +151,10 @@ export default function Results() {
                         alt="tites"
                       />
                       <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
-                        <h1 className="text-left font-semibold truncate whitespace-nowrap">
+                        <h1 className="text-left w-full font-semibold truncate whitespace-nowrap">
                           {result.name}
                         </h1>
-                        <p className="text-left truncate whitespace-nowrap">
+                        <p className="text-left w-full truncate whitespace-nowrap">
                           {result.artists[0].name}
                         </p>
                       </div>
