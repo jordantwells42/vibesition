@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider  session={session}>
       <Head>
-        <title>Gradiance</title>
+        <title>Vibesition</title>
         <link rel="icon" className="w-full h-full" href="/logo.svg" type="image/svg+xml"/>
       </Head>
       <Component  {...pageProps} />

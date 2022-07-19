@@ -57,9 +57,9 @@ const Home: NextPage = () => {
         </Link>
         </div>
         <div className="flex py-10 h-full w-5/6 flex-col items-center justify-center lg:w-3/4">
-          <h1 className="text-4xl font-bold italic">Gradiance</h1>
+          <h1 className="text-4xl font-bold italic">Vibesition</h1>
           <div className="m-2"></div>
-          <h2 className="text-center text-2xl">Create a seamless playlist between two songs</h2>
+          <h2 className="text-center text-2xl">Create a seamless <i>vibe</i> transition from song to another</h2>
           <div className="m-4"></div>
           <div className="flex w-full flex-row items-center justify-center font-semibold">
             <TabButton
@@ -108,7 +108,7 @@ const Home: NextPage = () => {
               }}
             >
                  <a>
-                  Generate your <i>Gradiance</i>
+                  Generate your <i>Vibesition</i>
                 </a>
                 </Link>}
               </button>

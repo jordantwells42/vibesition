@@ -124,7 +124,7 @@ export default function Results() {
         </Link>
         </div>
         <h1 className="m-5 text-4xl font-semibold text-white  py-5">
-          Your <i>Gradiance</i>
+          Your <i>Vibesition</i> {startSong && endSong && `from ${startSong.name} to ${endSong.name}`}
         </h1>
         <div className="flex w-full flex-row items-center justify-center">
           <div className="flex w-5/6 md:w-3/4 flex-row flex-wrap items-center justify-center">
