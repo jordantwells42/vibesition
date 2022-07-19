@@ -59,9 +59,9 @@ export default function SongInSearch({
           {song.artists[0].name}
         </p>
       </div>
-      {song.preview_url && <Player src={song.preview_url} />}
+      <Player src={song.preview_url} />
       <PlusIcon
-        className="h-12 w-12 md:ml-10 cursor-pointer"
+        className="h-10 w-10 md:ml-10 cursor-pointer flex justify-center items-center"
         onClick={() =>
           setSong({
             id: song.id,

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +10,7 @@ import Login from "../components/login";
 import { useSession } from "next-auth/react";
 import Player from '../components/player';
 import SongCard from "../components/songcard";
+import Link from 'next/link';
 
 function interpolate(features1: any, features2: any, t: number) {
   const features: any = {};
@@ -113,8 +115,15 @@ export default function Results() {
   }, [interpolatedSongs, startId, endId]);
   if (session) {
     return (
-      <div className="flex min-h-screen w-full  flex-col items-center justify-center bg-slate-700 py-5">
-        <h1 className="m-5 text-4xl font-semibold text-white">
+      <div className="flex min-h-screen w-full  flex-col items-center justify-start bg-slate-700">
+                <div className="w-full md:w-5/6 relative ">
+          <Link href="/">
+            <a>
+        <img src="/logo.svg" className="w-20 absolute top-0 left-5 md:top-5 md:left-5 " />
+        </a>
+        </Link>
+        </div>
+        <h1 className="m-5 text-4xl font-semibold text-white  py-5">
           Your <i>Gradiance</i>
         </h1>
         <div className="flex w-full flex-row items-center justify-center">

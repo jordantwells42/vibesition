@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from "next";
 
@@ -47,8 +48,15 @@ const Home: NextPage = () => {
 
   if (session) {
     return (
-      <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-slate-700 py-10 text-white">
-        <div className="flex h-full w-5/6 flex-col items-center justify-center lg:w-3/4">
+      <div className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-slate-700  text-white">
+        <div className="w-full md:w-5/6 relative ">
+          <Link href="/">
+            <a>
+        <img src="/logo.svg" className="w-20 absolute top-0 left-5 md:top-5 lg:left-10 " />
+        </a>
+        </Link>
+        </div>
+        <div className="flex py-10 h-full w-5/6 flex-col items-center justify-center lg:w-3/4">
           <h1 className="text-4xl font-bold italic">Gradiance</h1>
           <div className="m-2"></div>
           <h2 className="text-center text-2xl">Create a seamless playlist between two songs</h2>
@@ -77,32 +85,34 @@ const Home: NextPage = () => {
             >
               <h1
                 style={{ color: textColor(endColor, [tinycolor("white")]) }}
-                className="m-2 font-semibold md:text-xl"
+                className="m-2  md:text-xl"
               >
                 End Song
               </h1>
             </TabButton>
-            <Link
+            
+              <button
+                style={{
+                  backgroundColor:
+                    startSong.id && endSong.id
+                      ? tinycolor("#1ed760").desaturate(20).toHexString()
+                      : tinycolor("#1ed760").desaturate(40).toHexString(),
+                }}
+                className={`flex h-20 w-1/3 flex-row font-bold items-center justify-center rounded-tr-xl p-2 md:text-xl`}
+                onClick={() => setOpenTab(2)}
+              >{startSong.id && endSong.id &&
+                <Link
               href={{
                 pathname: "/results",
                 query: { startId: startSong.id, endId: endSong.id },
               }}
             >
-              <button
-                style={{
-                  backgroundColor:
-                    startSong.id && endSong.id
-                      ? "#1ed760"
-                      : tinycolor("#1ed760").desaturate(40).toHexString(),
-                }}
-                className={`flex h-20 w-1/3 flex-row items-center justify-center rounded-tr-xl p-2 md:text-xl`}
-                onClick={() => setOpenTab(2)}
-              >
-                <a>
+                 <a>
                   Generate your <i>Gradiance</i>
                 </a>
+                </Link>}
               </button>
-            </Link>
+            
           </div>
           <SpotifySearch
             display={openTab == 0}
