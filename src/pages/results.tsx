@@ -28,8 +28,8 @@ export default function Results() {
   const router = useRouter();
   const { startId, endId } = router.query;
   const { data: session } = useSession();
-  const [startSong, setStartSong] = useState(null);
-  const [endSong, setEndSong] = useState(null);
+  const [startSong, setStartSong] = useState<any>(null);
+  const [endSong, setEndSong] = useState<any>(null);
   const numSongs = 10;
   const [colors, setColors] = useState<tinycolor.Instance[]>(
     new Array(numSongs + 2).fill(tinycolor("gray"))
