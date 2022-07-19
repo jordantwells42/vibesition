@@ -1,3 +1,9 @@
-# Create T3 App
+# Gradiance
 
-This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
+[gradiance.jordantwells.com](https://gradiance.jordantwells.com)
+
+Uses the Spotify API to create a "gradient" of songs from one song to another! 
+
+
+
+Boot strapped using create-t3-app 
