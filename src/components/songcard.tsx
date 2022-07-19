@@ -47,7 +47,7 @@ export default function SongCard({
         animate={{ x: 0, height: "100%" }}
         className="relative m-2 flex w-full flex-col items-center justify-start rounded-2xl p-2 hover:cursor-pointer hover:bg-green-700 md:w-1/5 md:p-2"
         key={song.id}
-        onClick={handleClick}
+        onClick={song.preview_url && handleClick}
       >
         <motion.div
         variants={variants}
