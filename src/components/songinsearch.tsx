@@ -47,9 +47,9 @@ export default function SongInSearch({
       key={song.id}
     >
       <img
-        className="aspect-square h-10 w-10 object-contain md:h-20 md:w-20"
+        className="rounded-xl aspect-square h-10 w-10 object-contain md:h-20 md:w-20"
         src={song.album.images[1].url}
-        alt="tites"
+        alt={song.name}
       />
       <div className="m-2 flex w-full flex-col items-start justify-center overflow-x-hidden">
         <h1 className="truncate whitespace-nowrap font-semibold md:text-xl">
@@ -59,7 +59,7 @@ export default function SongInSearch({
           {song.artists[0].name}
         </p>
       </div>
-      <Player src={song.preview_url} />
+      {song.preview_url && <Player src={song.preview_url} />}
       <PlusIcon
         className="h-12 w-12 md:ml-10 cursor-pointer"
         onClick={() =>

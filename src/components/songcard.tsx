@@ -58,7 +58,7 @@ export default function SongCard({
             src={song.album.images[1].url}
             alt="tites"
           ></img>
-          <div className="absolute rounded-xl hover:backdrop-brightness-50 w-full h-full opacity-0 hover:opacity-100 flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+          {song.preview_url && <div className="absolute rounded-xl hover:backdrop-brightness-50 w-full h-full opacity-0 hover:opacity-100 flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
             {!playing ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ export default function SongCard({
                 />
               </svg>
             )}
-          </div>
+          </div>}
         </motion.div>
         <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
           <h1 className="w-full truncate whitespace-nowrap text-left font-semibold">

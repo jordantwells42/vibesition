@@ -44,11 +44,6 @@ export default function Results() {
           setStartSong(data[0]);
           setEndSong(data[1]);
         });
-      fetch(`/api/search-by-id?id=${endId}`)
-        .then((res) => res.json())
-        .then((data) => {
-
-        });
       fetch("/api/audio-features?ids=" + startId + "," + endId)
         .then((res) => res.json())
         .then((data) => {
