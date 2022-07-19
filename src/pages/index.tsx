@@ -99,6 +99,12 @@ const Home: NextPage = () => {
               </h1>
             </TabButton>
 
+            <Link
+                  href={{
+                    pathname: (startSong.id && endSong.id) ? "/results" : "/",
+                    query: { startId: startSong.id, endId: endSong.id },
+                  }}
+                >
             <button
               style={{
                 backgroundColor:
@@ -107,21 +113,17 @@ const Home: NextPage = () => {
                     : tinycolor("#1ed760").desaturate(40).toHexString(),
               }}
               className={`flex h-20 w-1/3 flex-row items-center justify-center rounded-t-2xl p-2 font-bold md:text-xl text-white border-green-100 border-l-2 border-t-2`}
-              onClick={() => setOpenTab(2)}
+              onClick={() => setOpenTab(0)}
             >
               {startSong.id && endSong.id && (
-                <Link
-                  href={{
-                    pathname: "/results",
-                    query: { startId: startSong.id, endId: endSong.id },
-                  }}
-                >
+
                   <a>
                     Generate your <i>Vibesition</i>
                   </a>
-                </Link>
+                
               )}
             </button>
+            </Link>
           </div>
           <SpotifySearch
             display={openTab == 0}
