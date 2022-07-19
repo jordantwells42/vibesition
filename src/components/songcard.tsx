@@ -45,7 +45,7 @@ export default function SongCard({
         }}
         initial={{ x: -20, height: "0%" }}
         animate={{ x: 0, height: "100%" }}
-        className="relative m-2 flex w-32 flex-col items-center justify-start rounded-2xl p-2 hover:cursor-pointer hover:bg-green-700 md:w-48  md:p-2"
+        className="relative m-2 flex w-40 flex-col items-center justify-start rounded-2xl p-2 hover:cursor-pointer hover:bg-green-700 md:w-48  md:p-2"
         key={song.id}
         onClick={song.preview_url && handleClick}
       >

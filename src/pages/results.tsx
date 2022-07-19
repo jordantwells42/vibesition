@@ -147,7 +147,7 @@ export default function Results() {
           </h1>
         </div>
         <div className="flex w-full flex-row items-center justify-center">
-          <div className="flex w-5/6 flex-row flex-wrap items-center justify-center md:w-3/4">
+          <div className="flex w-full flex-row flex-wrap items-center justify-center md:w-3/4">
             {interpolatedSongs &&
               startSong &&
               endSong &&
