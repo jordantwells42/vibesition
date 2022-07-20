@@ -112,6 +112,7 @@ export const getRecommendation = async (
 export const createPlaylist = async (
   refresh_token: string,
   playlistName: string,
+  description: string,
   ids: string
 ) => {
   const { access_token } = await getAccessToken(refresh_token)
@@ -135,7 +136,8 @@ export const createPlaylist = async (
       },
       body: JSON.stringify({
         name: playlistName,
-        public: true
+        public: true,
+        description: description
       })
     }
   ).then(res => res.json())
