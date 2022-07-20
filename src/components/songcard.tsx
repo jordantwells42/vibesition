@@ -99,7 +99,7 @@ export default function SongCard({
         </motion.div>
         
         <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
-        <a href={song.external_urls.spotify} lassName="flex w-full flex-col items-center justify-center overflow-x-hidden">
+        <a href={song.external_urls.spotify} className="flex w-full flex-col items-center justify-center overflow-x-hidden">
           <h1 className="w-full truncate whitespace-nowrap text-left font-semibold">
             {song.name}
           </h1>
