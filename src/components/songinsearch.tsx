@@ -46,7 +46,7 @@ export default function SongInSearch({
       className="m-1 flex w-full flex-row items-center justify-start rounded-2xl px-4 hover:cursor-pointer md:p-2 md:px-8"
       key={song.id}
     >
-      <a href={song.href}>
+      <a href={song.external_urls.spotify}>
       <img
         className="rounded-xl aspect-square h-10 w-10 object-contain md:h-20 md:w-20"
         src={song.album.images[1].url}
