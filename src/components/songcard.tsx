@@ -97,6 +97,7 @@ export default function SongCard({
             )}
           </div>}
         </motion.div>
+        <a href={song.href}>
         <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
           <h1 className="w-full truncate whitespace-nowrap text-left font-semibold">
             {song.name}
@@ -105,6 +106,7 @@ export default function SongCard({
             {song.artists[0].name}
           </p>
         </div>
+        </a>
         <audio ref={playerRef} className="w-full">
           <source src={song.preview_url}></source>
         </audio>
