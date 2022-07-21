@@ -23,7 +23,7 @@ export default function SongInSearch({
   color: tinycolor.Instance;
 }) {
   return (
-    <motion.div layout
+    <motion.div
       initial={{
         x: -20,
         height: "0%",
@@ -37,6 +37,7 @@ export default function SongInSearch({
         color: textColor(color.clone().lighten(10), [tinycolor("white")]),
       }}
       whileHover={{ scale: 1.05 }}
+      transition={{type: "spring", duration: 0.2}}
       onClick={() =>
         setSong({
           id: song.id,
