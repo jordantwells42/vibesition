@@ -19,6 +19,26 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       href="https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap"
       rel="stylesheet"
     />
+    <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1'
+        ></meta>
+        <meta
+          property='og:description'
+          content="Generate a playlist that blends between two songs' vibes"
+        />
+        <meta
+          name='description'
+          content="Generate a playlist that blends between two songs' vibes"
+        />
+        <meta property='og:title' content='Vibesition' key='title' />
+        <meta
+          property='og:image'
+          content={
+            '/preview.png'
+          }
+        />
+        <meta property='og:url' content={'https://vibesition.jordantwells.com'} />
       </Head>
       <Component {...pageProps} />
 
