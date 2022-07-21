@@ -105,6 +105,7 @@ export default function Results() {
   }, [endId, startId, numSongs]);
 
   useEffect(() => {
+    if (interpolatedSongs.length === numSongs){
     fetch(
       "/api/audio-features?ids=" +
         [startId, ...interpolatedSongs.map((s) => s.id), endId].join(",")
@@ -116,6 +117,7 @@ export default function Results() {
         }
         setColors(data.map((features: any) => featuresToColors(features)));
       });
+    }
   }, [interpolatedSongs, startId, endId]);
 
   function handleCreatePlaylist() {
