@@ -15,7 +15,7 @@ export default function SongCard({
   const playerRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const handleClick = () => {
-    /*
+    
     if (playerRef.current) {
       if (playing) {
         playerRef.current.pause();
@@ -23,7 +23,7 @@ export default function SongCard({
         playerRef.current.play();
       }
       setPlaying(!playing);
-    }*/
+    }
   };
 
   const variants: any = {
@@ -66,7 +66,7 @@ export default function SongCard({
               spotifyUrl={song.external_urls.spotify}
             />
           </div>
-          {/*song.preview_url && <div className="absolute rounded-xl hover:backdrop-brightness-50 w-full h-full opacity-0 hover:opacity-100 flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+          {song.preview_url && <div className="absolute hover:backdrop-brightness-50 w-5/6 aspect-square ml-2.5 opacity-0 hover:opacity-100 flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
             {!playing ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ export default function SongCard({
                 />
               </svg>
             )}
-            </div>*/}
+            </div>}
         </motion.div>
 
         <div className="m-2 mx-4 flex w-full flex-col items-center justify-center overflow-x-hidden">

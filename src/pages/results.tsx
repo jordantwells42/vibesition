@@ -151,9 +151,9 @@ export default function Results() {
         </div>
         <div className="flex w-full flex-row items-center justify-center">
           <div className="flex w-full flex-row flex-wrap items-center justify-center md:w-3/4">
-            {interpolatedSongs &&
+            {(interpolatedSongs &&
               startSong &&
-              endSong &&
+              endSong) ?
               [startSong, ...interpolatedSongs, endSong].map(
                 (result: any, idx: number) => (
                   <SongCard
@@ -162,7 +162,7 @@ export default function Results() {
                     color={colors[idx] || tinycolor("#222")}
                   />
                 )
-              )}
+              ) : <p> Loading... If it doesn&apos;t load trying refreshing the page</p>}
           </div>
         </div>
         <div className="my-5 flex w-5/6 flex-col rounded-2xl bg-stone-800 p-3 text-xl md:w-1/3 ">
@@ -179,10 +179,10 @@ export default function Results() {
                   .desaturate(40)
                   .toHexString(),
               }}
-              className="mx-3 h-1/2 w-1/2 rounded-xl text-white"
+              className="mx-3 h-1/2 w-1/2 rounded-xl p-2 text-white"
               onClick={handleCreatePlaylist}
             >
-              Create Playlist
+              Save Playlist
             </button>
           </div>
           {playlistUrl && (
