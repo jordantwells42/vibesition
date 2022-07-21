@@ -133,7 +133,7 @@ export default function Results() {
 
   if (session) {
     return (
-      <div className="relative flex min-h-screen  w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
+      <div className="relative flex min-h-screen font-main w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
         <div className="m-5 flex flex-row items-center justify-center ">
           <Link href="/">
             <a>

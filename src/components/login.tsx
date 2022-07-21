@@ -4,7 +4,7 @@ import Footer from "./footer";
 
 export default function Login() {
   return (
-    <div className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center bg-green-50 text-4xl text-white">
+    <div className="relative font-main flex h-screen min-h-screen w-full flex-col items-center justify-center bg-green-50 text-4xl text-white">
       <div className="flex flex-col items-center justify-center rounded-2xl bg-stone-900 p-10">
         <p className="w-5/6 text-center">
           Sign in with Spotify to use <i>Vibesition</i>{" "}
