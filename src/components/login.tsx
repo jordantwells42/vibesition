@@ -1,24 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 import { useSession, signIn, signOut } from "next-auth/react";
 import Footer from "./footer";
+import tinycolor from 'tinycolor2';
 
 export default function Login() {
   return (
-    <div className="relative font-main flex h-screen min-h-screen w-full flex-col items-center justify-center bg-green-50 text-4xl text-white">
-      <div className="flex flex-col items-center justify-center rounded-2xl bg-stone-900 p-10">
-        <p className="w-5/6 text-center">
-          Sign in with Spotify to use <i>Vibesition</i>{" "}
+    <div className="relative flex h-screen min-h-screen w-full flex-col items-center justify-center bg-green-50 font-main  text-white">
+      <div className="flex w-full md:w-1/2 flex-col items-center justify-center rounded-2xl bg-stone-900 p-10">
+        <h1 className="text-3xl text-gray-200 text-center">
+          Welcome to <i className="text-4xl text-green-200">Vibesition</i>
+        </h1>
+        <p className="w-5/6 my-3 text-center text-lg text-gray-300">
+          Ready to flow between different vibes?
         </p>
         <div className="my-5 w-3/4 border-2"></div>
         <button
-          className="flex h-20 flex-row items-center justify-center rounded-2xl border-white bg-emerald-700 p-4 md:w-1/3"
+        style={{backgroundColor:tinycolor("#1ed760").desaturate(40).toHexString()}}
+          className="flex h-20 w-3/4 flex-row items-center justify-center rounded-2xl border-white p-4 text-white"
           onClick={() => signIn("spotify")}
         >
           <img
-            alt="spotify logo"
-            className="h-full"
-            src="/spotify_logo.png"
-          ></img>
+            className="mx-2 brightness-0 invert aspect-square w-14 object-contain"
+            alt="Spotify Logo"
+            src="/spotify.png"
+
+          />
+          <h2 className="w-full text-2xl"> Login with Spotify</h2>
         </button>
       </div>
       <Footer />
