@@ -11,14 +11,15 @@ export default function Footer() {
         </h1>
         <h1 className="flex">
           Powered by the{" "}
-          <a href="https://spotify.com">
+          <a className="flex" href="https://spotify.com">
             <img
               className="mx-2 aspect-square w-5 object-contain"
               alt="Spotify Logo"
               src="/spotify.png"
             />
-          </a>{" "}
+          {" "}
           Spotify API
+          </a>
         </h1>
       </div>
       <a href="https://github.com/jordantwells42">

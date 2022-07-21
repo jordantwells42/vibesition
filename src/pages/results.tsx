@@ -105,18 +105,18 @@ export default function Results() {
   }, [endId, startId, numSongs]);
 
   useEffect(() => {
-    if (interpolatedSongs.length === numSongs){
-    fetch(
-      "/api/audio-features?ids=" +
-        [startId, ...interpolatedSongs.map((s) => s.id), endId].join(",")
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data[0]) {
-          return null;
-        }
-        setColors(data.map((features: any) => featuresToColors(features)));
-      });
+    if (interpolatedSongs.length === numSongs) {
+      fetch(
+        "/api/audio-features?ids=" +
+          [startId, ...interpolatedSongs.map((s) => s.id), endId].join(",")
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data[0]) {
+            return null;
+          }
+          setColors(data.map((features: any) => featuresToColors(features)));
+        });
     }
   }, [interpolatedSongs, startId, endId]);
 
@@ -125,7 +125,8 @@ export default function Results() {
       `/api/create-playlist?name=${playlistName}&ids=` +
         [startId, ...interpolatedSongs.map((s) => s.id), endId]
           .map((s) => "spotify:track:" + s)
-          .join(",") + `&description=Vibesition from ${startSong.name} to ${endSong.name}`
+          .join(",") +
+        `&description=Vibesition from ${startSong.name} to ${endSong.name}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -135,7 +136,7 @@ export default function Results() {
 
   if (session) {
     return (
-      <div className="relative flex min-h-screen font-main w-full flex-col items-center justify-start bg-green-50 py-10  pb-20 text-stone-900">
+      <div className="relative flex min-h-screen w-full flex-col items-center justify-start bg-green-50 py-10 pb-20  font-main text-stone-900">
         <div className="m-5 flex flex-row items-center justify-center ">
           <Link href="/">
             <a>
@@ -164,12 +165,12 @@ export default function Results() {
               )}
           </div>
         </div>
-        <div className="my-5 w-5/6 md:w-1/3 flex flex-col rounded-2xl bg-stone-800 p-3 text-xl ">
+        <div className="my-5 flex w-5/6 flex-col rounded-2xl bg-stone-800 p-3 text-xl md:w-1/3 ">
           <div className="flex w-full flex-row items-center justify-between">
             <input
               value={playlistName}
               onChange={(evt) => setPlaylistName(evt.target.value)}
-              className="rounded-xl  h-1/2 p-2 w-3/4 text-stone-900"
+              className="h-1/2  w-3/4 rounded-xl p-2 text-stone-900"
               placeholder="My Vibe Transition"
             ></input>
             <button
@@ -185,8 +186,12 @@ export default function Results() {
             </button>
           </div>
           {playlistUrl && (
-            <div className="text-white hover:text-green-200 my-2 w-full flex  whitespace-nowrap truncate">
-              <img className="w-5 m-1 aspect-square object-contain origin-center" alt="Spotify Logo" src="/spotify.png" />
+            <div className="my-2 flex w-full truncate whitespace-nowrap  text-white hover:text-green-200">
+              <img
+                className="m-1 aspect-square w-5 origin-center object-contain"
+                alt="Spotify Logo"
+                src="/spotify.png"
+              />
               <a href={playlistUrl}>View Playlist</a>
             </div>
           )}
