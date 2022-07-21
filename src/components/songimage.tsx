@@ -10,9 +10,9 @@ export default function SongImage({
 }) {
   return (
     <div className="flex aspect-square w-full flex-row items-center justify-center rounded-lg">
-      <a className="flex-col backdrop-brightness-90 h-full hover:text-green-200 justify-center items-center" href={spotifyUrl}>
-        <img className="w-5 m-1 aspect-square object-contain origin-center" alt="Spotify Logo" src="/spotify.png" />
-        <h2 style={{writingMode:"vertical-rl"}} className="text-center origin-center">Listen</h2>
+      <a className="flex-col backdrop-brightness-125 w-5 h-full hover:text-green-200 justify-center items-center" href={spotifyUrl}>
+        <img className="w-full aspect-square object-contain" alt="Spotify Logo" src="/spotify.png" />
+        <h2 style={{writingMode:"vertical-rl"}} className="flex font-semibold w-full items-center justify-center mt-1 origin-center">Listen</h2>
       </a>
       <img className="object-contain w-5/6 aspect-square" alt={songName} src={imgUrl}></img>
     </div>

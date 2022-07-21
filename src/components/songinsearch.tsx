@@ -47,7 +47,7 @@ export default function SongInSearch({
       className="m-1 flex w-full flex-row items-center justify-start rounded-2xl px-4 hover:cursor-pointer md:p-2 md:px-8"
       key={song.id}
     >
-      <div className="rounded-xl aspect-square w-1/5">
+      <div className="rounded-xl aspect-square h-24">
       <SongImage songName={song.name} imgUrl={song.album.images[1].url} spotifyUrl={song.external_urls.spotify} />
       </div>
       
