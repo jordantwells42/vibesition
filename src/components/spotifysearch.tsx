@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PlusIcon from "./plusicon";
 import { motion } from "framer-motion";
 import SongInSearch from "./songinsearch";
 import tinycolor from "tinycolor2";
 import textColor from "../libs/textColor";
+import debounce from 'lodash.debounce';
+
+
 
 export default function SpotifySearch({
   title,
@@ -29,13 +32,28 @@ export default function SpotifySearch({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any>(null);
 
-  useEffect(() => {
-    if (searchQuery) {
-      fetch(`/api/search?q=${searchQuery}`)
+  function handleSearch(evt: any){
+    setSearchQuery(evt?.target?.value)
+    debounce(async () => {
+      await fetch(`/api/search?q=${searchQuery}`)
         .then((res) => res.json())
         .then((data) => setSearchResults(data));
-    }
-  }, [searchQuery]);
+    }, 1000)
+  }
+
+
+  const debouncedSearch = debounce(async (query) => {
+    fetch(`/api/search?q=${query}`)
+        .then((res) => res.json())
+        .then((data) => setSearchResults(data));
+  }, 200);
+  
+  async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value)
+    debouncedSearch(e.target.value);
+  }
+
+
   return (
     <motion.div
       animate={{
@@ -56,7 +74,7 @@ export default function SpotifySearch({
         value={searchQuery}
         placeholder={"Red (Taylor's Version)"}
         className="my-2 w-full rounded-2xl p-2 text-2xl placeholder-black md:px-4"
-        onChange={(evt) => setSearchQuery(evt.target.value)}
+        onChange={handleChange}
       />
       <div className="flex w-full flex-col items-center justify-start">
         {searchResults &&
