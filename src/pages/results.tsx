@@ -163,7 +163,7 @@ export default function Results() {
           </div>
         </div>
         <div className="my-5 w-5/6 md:w-1/3 flex flex-col rounded-2xl bg-stone-800 p-3 text-xl ">
-          <div className="flex w-full h-full flex-row items-center justify-between">
+          <div className="flex w-full flex-row items-center justify-between">
             <input
               value={playlistName}
               onChange={(evt) => setPlaylistName(evt.target.value)}
