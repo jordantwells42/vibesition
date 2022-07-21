@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import tinycolor from "tinycolor2";
 import textColor from "../libs/textColor";
 import Player from './player';
+import SongImage from "./songimage";
 export default function SongInSearch({
   song,
   setSong,
@@ -46,13 +47,10 @@ export default function SongInSearch({
       className="m-1 flex w-full flex-row items-center justify-start rounded-2xl px-4 hover:cursor-pointer md:p-2 md:px-8"
       key={song.id}
     >
-      <a href={song.external_urls.spotify}>
-      <img
-        className="rounded-xl aspect-square h-10 w-10 object-contain md:h-20 md:w-20"
-        src={song.album.images[1].url}
-        alt={song.name}
-      />
-      </a>
+      <div className="rounded-xl aspect-square w-1/5">
+      <SongImage songName={song.name} imgUrl={song.album.images[1].url} spotifyUrl={song.external_urls.spotify} />
+      </div>
+      
       <div className="m-2 flex w-full flex-col items-start justify-center overflow-x-hidden">
         <h1 className="truncate whitespace-nowrap font-semibold md:text-xl">
           {song.name}

@@ -163,11 +163,11 @@ export default function Results() {
           </div>
         </div>
         <div className="my-5 w-5/6 md:w-1/3 flex flex-col rounded-2xl bg-stone-800 p-3 text-xl ">
-          <div className="flex w-full flex-row items-center justify-between">
+          <div className="flex w-full h-full flex-row items-center justify-between">
             <input
               value={playlistName}
               onChange={(evt) => setPlaylistName(evt.target.value)}
-              className="rounded-xl p-2 w-3/4 text-stone-900"
+              className="rounded-xl  h-1/2 p-2 w-3/4 text-stone-900"
               placeholder="My Vibe Transition"
             ></input>
             <button
@@ -176,15 +176,16 @@ export default function Results() {
                   .desaturate(40)
                   .toHexString(),
               }}
-              className="mx-3  w-1/2 rounded-xl p-2 text-white"
+              className="mx-3 h-1/2 w-1/2 rounded-xl text-white"
               onClick={handleCreatePlaylist}
             >
               Create Playlist
             </button>
           </div>
           {playlistUrl && (
-            <div className="text-white w-full whitespace-nowrap truncate">
-              <a href={playlistUrl}>{playlistUrl}</a>
+            <div className="text-white hover:text-green-200 my-2 w-full flex  whitespace-nowrap truncate">
+              <img className="w-5 m-1 aspect-square object-contain origin-center" alt="Spotify Logo" src="/spotify.png" />
+              <a href={playlistUrl}>View Playlist</a>
             </div>
           )}
         </div>

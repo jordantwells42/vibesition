@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import textColor from "../libs/textColor";
 import Player from "./player";
 import { useRef, useState } from "react";
+import SongImage from './songimage';
 export default function SongCard({
   song,
   color,
@@ -53,12 +54,10 @@ export default function SongCard({
         variants={variants}
         animate={playing?"playing":"paused"}
         className="h-full w-full relative">
-          <img
-            className="aspect-square w-full rounded-xl object-contain hover:brightness-50"
-            src={song.album.images[1].url}
-            alt="tites"
-          ></img>
-          {song.preview_url && <div className="absolute rounded-xl hover:backdrop-brightness-50 w-full h-full opacity-0 hover:opacity-100 flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+ <div className="rounded-xl aspect-square w-full">
+      <SongImage songName={song.name} imgUrl={song.album.images[1].url} spotifyUrl={song.external_urls.spotify} />
+      </div>
+          {/*song.preview_url && <div className="absolute rounded-xl hover:backdrop-brightness-50 w-full h-full opacity-0 hover:opacity-100 flex top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center">
             {!playing ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,10 +94,10 @@ export default function SongCard({
                 />
               </svg>
             )}
-          </div>}
+            </div>*/}
         </motion.div>
         
-        <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
+        <div className="m-2 mx-4 flex w-full flex-col items-center justify-center overflow-x-hidden">
         <a href={song.external_urls.spotify} className="flex w-full flex-col items-center justify-center overflow-x-hidden">
           <h1 className="w-full truncate whitespace-nowrap text-left font-semibold">
             {song.name}
