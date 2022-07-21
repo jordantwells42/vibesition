@@ -37,7 +37,7 @@ export default function SongInSearch({
         color: textColor(color.clone().lighten(10), [tinycolor("white")]),
       }}
       whileHover={{ scale: 1.05 }}
-      transition={{type: "spring", duration: 0.2}}
+      transition={{type: "spring", duration: 0.1}}
       onClick={() =>
         setSong({
           id: song.id,
