@@ -39,7 +39,6 @@ export const getSearch = async (refresh_token: string, query: string) => {
     q: query,
     type: 'track',
     limit: '5',
-    market: 'US'
   }).toString()
   return fetch(SEARCH_ENDPOINT + '?' + querystring, {
     headers: {
@@ -52,7 +51,6 @@ export const getSearchById = async (refresh_token: string, ids: string) => {
   const { access_token } = await getAccessToken(refresh_token)
   const querystring = new URLSearchParams({
     ids: ids,
-    market: 'US'
   }).toString()
 
   return fetch(TRACK_BY_ID_ENDPOINT + '?' + querystring, {
@@ -84,7 +82,6 @@ export const getRecommendation = async (
     seed_artists: '',
     seed_genres: '',
     seed_tracks: [interpolation.startId, interpolation.endId].join(','),
-    market: 'US',
     limit: String(limit),
     target_energy: interpolation.energy,
     target_danceability: interpolation.danceability,
@@ -112,6 +109,7 @@ export const getRecommendation = async (
 export const createPlaylist = async (
   refresh_token: string,
   playlistName: string,
+  description: string,
   ids: string
 ) => {
   const { access_token } = await getAccessToken(refresh_token)
@@ -135,7 +133,8 @@ export const createPlaylist = async (
       },
       body: JSON.stringify({
         name: playlistName,
-        public: true
+        public: true,
+        description: description
       })
     }
   ).then(res => res.json())

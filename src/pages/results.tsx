@@ -123,7 +123,7 @@ export default function Results() {
       `/api/create-playlist?name=${playlistName}&ids=` +
         [startId, ...interpolatedSongs.map((s) => s.id), endId]
           .map((s) => "spotify:track:" + s)
-          .join(",")
+          .join(",") + `&description=Vibesition from ${startSong.name} to ${endSong.name}`
     )
       .then((res) => res.json())
       .then((data) => {

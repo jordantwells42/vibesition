@@ -97,14 +97,18 @@ export default function SongCard({
             )}
           </div>}
         </motion.div>
+        
         <div className="m-2 flex w-full flex-col items-center justify-center overflow-x-hidden">
+        <a href={song.external_urls.spotify} className="flex w-full flex-col items-center justify-center overflow-x-hidden">
           <h1 className="w-full truncate whitespace-nowrap text-left font-semibold">
             {song.name}
           </h1>
           <p className="w-full truncate whitespace-nowrap text-left">
             {song.artists[0].name}
           </p>
+          </a>
         </div>
+        
         <audio ref={playerRef} className="w-full">
           <source src={song.preview_url}></source>
         </audio>
