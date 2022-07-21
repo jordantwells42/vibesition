@@ -49,7 +49,7 @@ const Home: NextPage = () => {
 
   if (session) {
     return (
-      <div className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden  bg-green-50 text-stone-900">
+      <div className="relative flex font-main min-h-screen w-full flex-col items-center justify-start overflow-x-hidden  bg-green-50 text-stone-900">
         <div className="flex h-full w-5/6 flex-col items-center justify-center py-5 lg:w-3/4">
           <div className="m-5 flex flex-row items-center justify-center ">
             <Link href="/">

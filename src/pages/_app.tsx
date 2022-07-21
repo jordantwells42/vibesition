@@ -15,6 +15,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           href="/logo.svg"
           type="image/svg+xml"
         />
+            <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
       </Head>
       <Component {...pageProps} />
 
