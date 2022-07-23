@@ -86,8 +86,8 @@ export const getRecommendation = async (
     target_energy: interpolation.energy,
     target_danceability: interpolation.danceability,
     //target_loudness: interpolation.loudness,
-    target_valence: interpolation.valence
-    //  target_tempo: interpolation.tempo,
+    target_valence: interpolation.valence,
+    target_tempo: interpolation.tempo,
     //target_popularity: '100',
 
     //target_acousticness: interpolation.acousticness,
