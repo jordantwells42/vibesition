@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import SongInSearch from "./songinsearch";
 import tinycolor from "tinycolor2";
 import textColor from "../libs/textColor";
-import debounce from 'lodash.debounce';
 
 
 
@@ -42,15 +41,15 @@ export default function SpotifySearch({
   }
 
 
-  const debouncedSearch = debounce(async (query) => {
+  const search = (query: string) => {
     fetch(`/api/search?q=${query}`)
         .then((res) => res.json())
         .then((data) => setSearchResults(data));
-  }, 200);
+  };
   
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value)
-    debouncedSearch(e.target.value);
+    search(e.target.value);
   }
 
 
