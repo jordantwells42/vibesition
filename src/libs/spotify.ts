@@ -144,6 +144,10 @@ export const createPlaylist = async (
       uris:ids,
       position: '0',
     }).toString()
+  function timeout(ms: number){
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+  await timeout(3000)
   const add_response = await fetch(
     `https://api.spotify.com/v1/playlists/${playlist_id}/tracks` +"?" + querystring,
     {
