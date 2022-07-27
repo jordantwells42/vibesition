@@ -31,15 +31,6 @@ export default function SpotifySearch({
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any>(null);
 
-  function handleSearch(evt: any){
-    setSearchQuery(evt?.target?.value)
-    debounce(async () => {
-      await fetch(`/api/search?q=${searchQuery}`)
-        .then((res) => res.json())
-        .then((data) => setSearchResults(data));
-    }, 1000)
-  }
-
 
   const search = (query: string) => {
     fetch(`/api/search?q=${query}`)
