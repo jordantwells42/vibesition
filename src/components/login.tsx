@@ -25,7 +25,7 @@ export default function Login() {
             src="/spotify.png"
 
           />
-          <h2 className="w-full text-2xl"> Login with Spotify</h2>
+          <h2 className="w-full text-lg md:text-xl lg:text-2xl"> Login with Spotify</h2>
         </button>
       </div>
       <Footer />
