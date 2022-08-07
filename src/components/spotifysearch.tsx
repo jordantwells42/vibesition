@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import SongInSearch from "./songinsearch";
 import tinycolor from "tinycolor2";
 import textColor from "../libs/textColor";
+import {DebounceInput} from 'react-debounce-input';
 
 
 
@@ -55,11 +56,12 @@ export default function SpotifySearch({
       }}
       className="flex h-full w-full flex-col flex-wrap items-center justify-center overflow-x-hidden rounded-b-2xl p-5"
     >
-      <input
+      <DebounceInput
         style={{
           backgroundColor: color.clone().lighten(40).toHexString(),
           color: textColor(color.clone().lighten(20), [tinycolor("white")]),
         }}
+        debounceTimeout={200}
         value={searchQuery}
         placeholder={"Red (Taylor's Version)"}
         className="my-2 w-full rounded-2xl p-2 text-2xl placeholder-black md:px-4"
